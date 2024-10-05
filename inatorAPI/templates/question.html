@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit a Question</title>
+  </head>
+  <body>
+    <h1>Post an Interview Question</h1>
+    <form id="questionForm">
+      <label for="question">Question:</label><br />
+      <input type="text" id="question" name="question" required /><br /><br />
+
+      <label for="category">Category:</label><br />
+      <input type="text" id="category" name="category" required /><br /><br />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("questionForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const question = document.getElementById("question").value;
+          const category = document.getElementById("category").value;
+
+          fetch("/api/questions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ question, category }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert("Error: " + data.error);
+              } else {
+                alert("Question posted successfully!");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+    </script>
+  </body>
+</html>

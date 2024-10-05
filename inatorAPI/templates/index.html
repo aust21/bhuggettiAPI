@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+<!--  -->
+
+{% block title %} bhuggetti API | Home {% endblock %}
+
+<!--  -->
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='home__sec2.css') }}"
+/>
+<main>
+  <section class="sec__1">
+    <div class="sec__1_container center">
+      <h1>bhuggetti</h1>
+      <p>Your questions help us build a diverse, high-quality question bank.</p>
+
+      <div class="buttons">
+        <button><a href="">Submit Questions</a></button>
+        <button><a href="">Login</a></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec__2"></section>
+</main>
+{% endblock %}

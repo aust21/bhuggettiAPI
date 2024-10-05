@@ -1,0 +1,53 @@
+* {
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffefca;
+}
+
+.center {
+  text-align: center;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  position: relative;
+  text-decoration: none;
+}
+
+a,
+button,
+li,
+p,
+h1,
+h2,
+h3,
+h4 {
+  color: #000;
+}
+
+button {
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}

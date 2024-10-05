@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %} bhuggetti {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header id="nav">
+      <nav>
+        <li>
+          <a href="{{ url_for('index') }}" class="logo">bhuggetti</a>
+        </li>
+        <ul class="first-ul">
+          <li><a href="{{ url_for('index') }}">Read Docs</a></li>
+          <li><a href="{{ url_for('index') }}">About Us</a></li>
+          <li><a href="{{ url_for('index') }}">Contribute</a></li>
+        </ul>
+
+        <ul>
+          <button class="sign">
+            <a href="{{ url_for('index') }}" class="last">Login</a>
+          </button>
+
+          <button
+            class="in-nav"
+            type="button"
+            name="button"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+        </ul>
+      </nav>
+    </header>
+
+    <div>{% block content %} {% endblock %}</div>
+  </body>
+</html>

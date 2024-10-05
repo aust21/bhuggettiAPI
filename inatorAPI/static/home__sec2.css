@@ -1,0 +1,9 @@
+:root {
+  --bgLighter: #d7e5e4;
+}
+
+.sec__2 {
+  background-color: var(--bgLighter);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
