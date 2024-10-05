@@ -11,8 +11,12 @@
   href="{{ url_for('static', filename='home__sec2.css') }}"
 />
 <main>
-  <section>
-    <h1>Dash Fucking board {{user.name}}</h1>
+  <section class="flex">
+    <div class="sec__container">
+      <h1>Dash Fucking board {{user.name}}</h1>
+
+      {% for i in posts %} {{i.question}} {{i.user.name}} {% endfor %}
+    </div>
   </section>
 </main>
 {% endblock %}

@@ -4,7 +4,7 @@ from flask_login import LoginManager
 import os
 
 db = SQLAlchemy()
-qdb = SQLAlchemy()
+# qdb = SQLAlchemy()
 DB_NAME = "database.db"
 
 def create_app():
@@ -13,7 +13,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     db.init_app(app)
     from .auth import auth
-    from .models import User
+    from .models import User, QuestionModel
     from .views import views
 
     app.register_blueprint(auth, url_prefix="/auth")
