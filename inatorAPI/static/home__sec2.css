@@ -7,3 +7,17 @@
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }
+
+.sec__2_container {
+  padding: 2rem 5%;
+}
+
+.sec__2_container > h3 {
+  margin: 1rem;
+  font-size: 2.5rem;
+}
+
+.sec__2_container > .qs {
+  width: 70%;
+  margin: 0 auto;
+}
