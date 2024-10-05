@@ -20,15 +20,21 @@
           <a href="{{ url_for('index') }}" class="logo">bhuggetti</a>
         </li>
         <ul class="first-ul">
-          <li><a href="{{ url_for('index') }}">Read Docs</a></li>
-          <li><a href="{{ url_for('index') }}">About Us</a></li>
-          <li><a href="{{ url_for('index') }}">Contribute</a></li>
+          <li><a href="{{ url_for('docs') }}">Read Docs</a></li>
+          <li><a href="{{ url_for('about') }}">About Us</a></li>
+          <li><a href="{{ url_for('views.home') }}">Contribute</a></li>
         </ul>
 
         <ul>
+          {% if current_user.is_authenticated %}
+          <form action="{{ url_for('search') }}" method="GET">
+            <input class="s-bar" type="text" name="query" placeholder="Search..." />
+          </form>
+          {% else %}
           <button class="sign">
-            <a href="{{ url_for('index') }}" class="last">Login</a>
+            <a href="{{ url_for('login') }}" class="last">Login</a>
           </button>
+          {% endif %}
 
           <button
             class="in-nav"

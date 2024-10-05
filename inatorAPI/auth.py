@@ -24,7 +24,7 @@ def login():
             else:
                 flash("Password is incorrect", category="error")
         else:
-            flash("Email does not exist, please sign up", category="error")
+            redirect(url_for("sign_up"))
 
     return render_template("login.html")
 

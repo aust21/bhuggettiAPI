@@ -18,6 +18,13 @@ header > nav {
   /* border-bottom-right-radius: 20px; */
 }
 
+.s-bar {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  padding: .3rem .6rem;
+}
+
 @media (hover) {
   .scrolled {
     transform: translateY(-67%);

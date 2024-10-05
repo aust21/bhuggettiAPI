@@ -1,0 +1,32 @@
+.entry > input,
+select {
+  display: block;
+  outline: none;
+  margin: 0.5rem 0;
+  width: 300px;
+}
+
+form {
+  background-color: rgb(255, 255, 255);
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.entry > input[type="submit"] {
+  background-color: #889fa5;
+  outline: none;
+  border: 0;
+  padding: 0.2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+  border-radius: 5px;
+}
+
+.entry > input[type="submit"]:hover {
+  background-color: #c6c6c6;
+}
+
+select {
+  padding: 0.2rem;
+}
