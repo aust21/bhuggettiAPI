@@ -15,7 +15,9 @@
     <div class="sec__container">
       <h1>Dash Fucking board {{user.name}}</h1>
 
-      {% for i in posts %} {{i.question}} {{i.user.name}} {% endfor %}
+      {% for i in posts %}
+      <div class="card">{{i.question}} {{i.user.name}}</div>
+      {% endfor %}
     </div>
   </section>
 </main>
