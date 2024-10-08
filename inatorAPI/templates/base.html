@@ -22,17 +22,12 @@
         <ul class="first-ul">
           <li><a href="{{ url_for('docs') }}">Read Docs</a></li>
           {% if current_user.is_authenticated %}
-
-          <li>
-            <a href="{{ url_for('views.submit_question') }}">Submit Question</a>
-          </li>
           <li>
             <a href="{{ url_for('auth.logout') }}">Logout</a>
           </li>
           {% else %}
 
           <li><a href="{{ url_for('about') }}">About Us</a></li>
-          <li><a href="{{ url_for('views.home') }}">Contribute</a></li>
           {% endif %}
         </ul>
 

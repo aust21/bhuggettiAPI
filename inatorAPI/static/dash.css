@@ -4,12 +4,14 @@
   font-size: 2rem;
 }
 
-header {
+/* header {
   position: initial;
   padding-top: 1rem;
-}
-section {
-  min-height: fit-content;
+} */
+
+.sec {
+  min-height: 60vh;
+  /* background-color: #000; */
 }
 
 .sec__container {
@@ -18,11 +20,14 @@ section {
   padding: 2rem 1rem;
   border-radius: 10px;
   width: 70%;
+  height: 80vh;
+  overflow-y: auto;
 }
 
 .holder {
   width: 90%;
   margin: 1rem auto;
+  margin-top: 6.8rem;
   justify-content: space-between;
   align-items: flex-start;
 }
@@ -32,6 +37,7 @@ section {
   column-gap: 20px;
   width: 90%;
   margin: 0 auto;
+  /* height: 500px; */
 }
 
 .card {
@@ -46,6 +52,10 @@ section {
   word-wrap: break-word;
   text-overflow: ellipsis;
 }
+
+/* .form {
+    position: fixed;
+} */
 
 .submit_form {
   width: 28%;

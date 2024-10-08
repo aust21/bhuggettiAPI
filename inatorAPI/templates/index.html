@@ -17,8 +17,8 @@
       <p>Your questions help us build a diverse, high-quality question bank.</p>
 
       <div class="buttons">
-        <button><a href="">Submit Questions</a></button>
-        <button><a href="">Login</a></button>
+        <button><a href="{{ url_for('auth.sign_up') }}">Sign up</a></button>
+        <button><a href="{{ url_for('auth.login') }}">Login</a></button>
       </div>
     </div>
   </section>

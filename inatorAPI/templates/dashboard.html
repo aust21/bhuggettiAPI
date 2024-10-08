@@ -7,15 +7,18 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='dash.css') }}" />
 <main>
-  <section>
+  <section class="sec">
     <div class="holder flex">
       <div class="sec__container">
         <h1 class="head">Hiii {{user.name}}!</h1>
         <div class="cards masonry-grid">
           {% for i in posts %}
           <div class="card">
-            <p class="question">{{i.question}}</p>
-            <p class="name">{{i.user.name}}</p>
+            <p class="name">By: {{i.user.name}}</p>
+            <div class="details">
+              <p class="question">{{i.question}}</p>
+              <!-- <p class="date_created">{{i.date_created}}</p> -->
+            </div>
             <p class="speciality">{{i.domain}}</p>
           </div>
           {% endfor %}
