@@ -6,18 +6,53 @@
 <!--  -->
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='dash.css') }}" />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='home__sec2.css') }}"
-/>
 <main>
-  <section class="flex">
-    <div class="sec__container">
-      <h1>Dash Fucking board {{user.name}}</h1>
+  <section>
+    <div class="holder flex">
+      <div class="sec__container">
+        <h1 class="head">Hiii {{user.name}}!</h1>
+        <div class="cards masonry-grid">
+          {% for i in posts %}
+          <div class="card">
+            <p class="question">{{i.question}}</p>
+            <p class="name">{{i.user.name}}</p>
+            <p class="speciality">{{i.domain}}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
 
-      {% for i in posts %}
-      <div class="card">{{i.question}} {{i.user.name}}</div>
-      {% endfor %}
+      <div class="submit_form">
+        <h3>Post a question</h3>
+        <div class="form">
+          <form
+            id="questionForm"
+            method="POST"
+            action="{{ url_for('views.submit_question')}}"
+          >
+            <div class="q-entry">
+              <label for="category">Category</label>
+              <select name="category" id="category">
+                <option value="none">Select</option>
+                <option value="software engineering">
+                  Software Engineering
+                </option>
+                <option value="mechanical engineering">
+                  Mechanical Engineering
+                </option>
+              </select>
+            </div>
+
+            <div class="q-entry">
+              <label for="question">Question</label>
+              <textarea name="question" id="question" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <p>Your submission is highly valued.</p>
+      </div>
     </div>
   </section>
 </main>
