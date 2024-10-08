@@ -8,8 +8,16 @@ views = Blueprint("views", __name__)
 @views.route("/")
 @login_required
 def home():
-    posts = QuestionModel.query.all()
-    return render_template("dashboard.html", user=current_user, posts=posts)
+    view = request.args.get('view', 'my')
+
+    if view == 'all':
+        # Show all posts
+        posts = QuestionModel.query.all()
+    else:
+        # Show only the current user's posts
+        posts = QuestionModel.query.filter_by(user_id=current_user.id).all()
+
+    return render_template("dashboard.html", user=current_user, posts=posts, view=view)
 
 @views.route("/submit-question", methods=["GET", "POST"])
 @login_required

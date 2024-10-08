@@ -10,7 +10,6 @@
   <section class="sec">
     <div class="holder flex">
       <div class="sec__container">
-        <h1 class="head">Hiii {{user.name}}!</h1>
         <div class="cards masonry-grid">
           {% for i in posts %}
           <div class="card">
@@ -25,36 +24,51 @@
         </div>
       </div>
 
-      <div class="submit_form">
-        <h3>Post a question</h3>
-        <div class="form">
-          <form
-            id="questionForm"
-            method="POST"
-            action="{{ url_for('views.submit_question')}}"
-          >
-            <div class="q-entry">
-              <label for="category">Category</label>
-              <select name="category" id="category">
-                <option value="none">Select</option>
-                <option value="software engineering">
-                  Software Engineering
-                </option>
-                <option value="mechanical engineering">
-                  Mechanical Engineering
-                </option>
-              </select>
-            </div>
+      <div class="submit_form_outer">
+        <div class="submit_form">
+          <h3>Post a question</h3>
+          <div class="form">
+            <form
+              id="questionForm"
+              method="POST"
+              action="{{ url_for('views.submit_question')}}"
+            >
+              <div class="q-entry">
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                  <option value="none">Select</option>
+                  <option value="software engineering">
+                    Software Engineering
+                  </option>
+                  <option value="mechanical engineering">
+                    Mechanical Engineering
+                  </option>
+                </select>
+              </div>
 
-            <div class="q-entry">
-              <label for="question">Question</label>
-              <textarea name="question" id="question" required></textarea>
-            </div>
-            <button type="submit">Submit</button>
-          </form>
+              <div class="q-entry">
+                <label for="question">Question</label>
+                <textarea name="question" id="question" required></textarea>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
 
-        <p>Your submission is highly valued.</p>
+        <div class="btns flex">
+          <a
+            href="{{ url_for('views.home', view='my') }}"
+            class="{% if view == 'my' %}active{% endif %}"
+          >
+            View my Posts
+          </a>
+          <a
+            href="{{ url_for('views.home', view='all') }}"
+            class="{% if view == 'all' %}active{% endif %}"
+          >
+            View all Posts
+          </a>
+        </div>
       </div>
     </div>
   </section>

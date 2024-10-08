@@ -57,8 +57,12 @@
     position: fixed;
 } */
 
-.submit_form {
+.submit_form_outer {
   width: 28%;
+}
+
+.submit_form {
+  width: 100%;
   padding: 1rem;
   border-radius: 5px;
   background-color: #efe7fc;
@@ -75,6 +79,7 @@ textarea {
   outline: none;
   border-radius: 5px;
   padding: 0.3rem;
+  border: 1px solid #000;
   background-color: #fff;
   color: #000;
 }
@@ -90,6 +95,21 @@ button[type="submit"] {
   margin: 0.7rem 0;
   border-radius: 10px;
   color: #fff;
+}
+
+.btns {
+  width: 100%;
+  gap: 2rem;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-top: 1rem;
+  padding: .6rem 0;
+}
+
+.btns > a {
+  /* background-color: #b8a6a6; */
+  /* border-radius: 5px; */
+  /* padding: 0.5rem; */
 }
 
 @media (max-width: 768px) {
