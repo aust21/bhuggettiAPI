@@ -16,43 +16,9 @@ GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configura
 
 
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
-@auth.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
-                flash("Logged in", category="success")
-                login_user(user, remember=True)
-                return redirect(url_for("views.home"))
-            else:
-                flash("Password is incorrect", category="error")
-        else:
-            redirect(url_for("sign_up"))
-
-    return render_template("login.html")
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
-
-
-@auth.route("/login/google")
-def login_with_google():
-    google_provider_cfg = get_google_provider_cfg()
-    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
-
-    request_uri = client.prepare_request_uri(
-        authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
-        scope=["openid", "email", "profile"],
-    )
-    # print(request.base_url + "/callback")
-
-    return redirect(request_uri)
-
 
 @auth.route("/login/google/callback")
 def google_callback():
@@ -99,6 +65,43 @@ def google_callback():
     login_user(user)
 
     return redirect(url_for("views.home"))
+
+
+@auth.route("/login/google")
+def login_with_google():
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        # redirect_uri=request.base_url + "/callback",
+        redirect_uri="http://127.0.0.1:5000/auth/login/google/callback",
+        scope=["openid", "email", "profile"],
+    )
+    print(request.base_url + "/callback")
+
+    return redirect(request_uri)
+
+
+@auth.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        user = User.query.filter_by(email=email).first()
+        if user:
+            if check_password_hash(user.password, password):
+                flash("Logged in", category="success")
+                login_user(user, remember=True)
+                return redirect(url_for("views.home"))
+            else:
+                flash("Password is incorrect", category="error")
+        else:
+            redirect(url_for("sign_up"))
+
+    return render_template("login.html")
+
 
 @auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
