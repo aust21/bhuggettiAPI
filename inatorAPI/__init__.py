@@ -3,10 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
 from sqlalchemy import func
+from oauthlib.oauth2 import WebApplicationClient
 
 db = SQLAlchemy()
-# qdb = SQLAlchemy()
 DB_NAME = "database.db"
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
+client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 def create_app():
     app = Flask(__name__, static_folder='static', template_folder='templates')

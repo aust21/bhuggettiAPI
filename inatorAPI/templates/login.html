@@ -9,6 +9,7 @@
 <main>
   <section class="flex">
     <form action="{{ url_for('auth.login')}}" method="POST">
+      <h3 class="center">Welcome back</h3>
       <div class="entry">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required />
@@ -20,13 +21,22 @@
       </div>
 
       <div class="entry">
-        <input type="submit" />
+        <input type="submit" value="Sign in" />
       </div>
 
-      <p>
+      <p class="dont center">
         Don't have an account?
         <a href="{{ url_for('auth.sign_up') }}">Sign up</a>
       </p>
+
+      <p class="or">or</p>
+
+      <a
+        href="{{ url_for('auth.login_with_google') }}"
+        class="login-with-google-btn flex"
+        ><img class="g-logo" src="../static/img/g.svg" alt="google logo" />Sign
+        in with Google</a
+      >
     </form>
   </section>
 </main>
