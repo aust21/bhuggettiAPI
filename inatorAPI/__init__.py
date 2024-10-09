@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
+from sqlalchemy import func
 
 db = SQLAlchemy()
 # qdb = SQLAlchemy()
@@ -56,6 +57,26 @@ def create_app():
         query = request.args.get('q')
         # Perform your search logic here
         return render_template('search_results.html')
+
+    @app.route("/api/questions", methods=["GET"])
+    def get_question():
+
+        # in the future, select random id's first and return the questions from them
+        count = request.args.get('count', default=1, type=int)
+
+        questions = QuestionModel.query.order_by(func.random()).limit(count).all()
+
+        questions_data = [
+            {
+                "id": question.id,
+                "question": question.question,
+                "user_id": question.user_id,
+                "domain": question.domain,
+            }
+            for question in questions
+        ]
+
+        return jsonify({"data": questions_data})
 
 
     return app

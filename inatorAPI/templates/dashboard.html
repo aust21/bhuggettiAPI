@@ -34,15 +34,20 @@
               action="{{ url_for('views.submit_question')}}"
             >
               <div class="q-entry">
-                <label for="category">Category</label>
+                <label for="category">Question Type</label>
                 <select name="category" id="category">
                   <option value="none">Select</option>
-                  <option value="software engineering">
-                    Software Engineering
-                  </option>
-                  <option value="mechanical engineering">
-                    Mechanical Engineering
-                  </option>
+                  <option value="culture-fit">Culture Fit Question</option>
+                  <option value="technical">Technical Question</option>
+                </select>
+              </div>
+
+              <div class="q-entry">
+                <label for="field">Question Field</label>
+                <select name="field" id="field">
+                  <option value="none">Select</option>
+                  <option value="architecture">Architecture</option>
+                  <option value="software">Software Engineering</option>
                 </select>
               </div>
 
