@@ -13,12 +13,25 @@
         <div class="cards masonry-grid">
           {% for i in posts %}
           <div class="card">
-            <p class="name">By: {{i.user.name}}</p>
+            <!-- <p class="name">By: {{i.user.name}}</p> -->
             <div class="details">
               <p class="question">{{i.question}}</p>
               <!-- <p class="date_created">{{i.date_created}}</p> -->
             </div>
-            <p class="speciality">{{i.domain}}</p>
+            <p
+              class="speciality center"
+              style="
+                margin-top: 0.3rem;
+                background-color: #fff;
+                padding: 0.2rem;
+                border-radius: 3px;
+              "
+            >
+              Field: {{i.domain}}
+            </p>
+            <button>
+              <a href="/dash/delete-post/{{i.field}}/{{i.id}}">Delete</a>
+            </button>
           </div>
           {% endfor %}
         </div>
@@ -48,6 +61,13 @@
                   <option value="none">Select</option>
                   <option value="architecture">Architecture</option>
                   <option value="software">Software Engineering</option>
+                  <option value="business management">
+                    Business Management
+                  </option>
+                  <option value="mechanical engineering">
+                    Mechanical Engineering
+                  </option>
+                  <option value="not relevant">Not Relevant</option>
                 </select>
               </div>
 
@@ -60,22 +80,48 @@
           </div>
         </div>
 
+        <p class="filter center" style="margin-top: 1rem">Filter questions</p>
         <div class="btns flex">
           <a
             href="{{ url_for('views.home', view='culture-fit') }}"
             class="{% if view == 'culture-fit' %}active{% endif %}"
           >
-            Culture fit questions
+            Culture
           </a>
           <a
             href="{{ url_for('views.home', view='technical') }}"
             class="{% if view == 'technical' %}active{% endif %}"
           >
-            Technical questions
+            Technical
+          </a>
+
+          <a
+            href="{{ url_for('views.home', view='all') }}"
+            class="{% if view == 'all' %}active{% endif %}"
+          >
+            All
           </a>
         </div>
       </div>
     </div>
   </section>
 </main>
+
+<script>
+  const select = document.getElementById("field");
+  let options = Array.from(select.options);
+
+  // Remove the "Select" option from sorting
+  const selectOption = options.shift();
+
+  // Sort options alphabetically by their text
+  options.sort((a, b) => a.text.localeCompare(b.text));
+
+  // Add the "Select" option back at the beginning
+  options.unshift(selectOption);
+
+  // Rebuild the select options
+  select.innerHTML = "";
+  options.forEach((option) => select.add(option));
+</script>
 {% endblock %}

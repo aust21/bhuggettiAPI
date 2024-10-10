@@ -1,16 +1,14 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-import sys, os
+import sys, os, requests, json
 from .models import User
 from . import db
 from .views import views
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from oauthlib.oauth2 import WebApplicationClient
-import requests, json, logging
+
 sys.path.append(os.getcwd())
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
 
 auth = Blueprint("auth", __name__)
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
@@ -72,26 +70,26 @@ def google_callback():
 @auth.route("/complete-profile", methods=["GET", "POST"])
 @login_required
 def complete_profile():
-    logger.debug(f"Current user: {current_user}")
-    logger.debug(f"Current user is authenticated: {current_user.is_authenticated}")
-    logger.debug(f"Current user attributes: {vars(current_user)}")
+    # logger.debug(f"Current user: {current_user}")
+    # logger.debug(f"Current user is authenticated: {current_user.is_authenticated}")
+    # logger.debug(f"Current user attributes: {vars(current_user)}")
 
     if request.method == "POST":
         speciality = request.form.get("speciality")
-        logger.debug(f"Received speciality: {speciality}")
+        password = request.form.get("password")
+        # logger.debug(f"Received speciality: {speciality}")
 
         if speciality:
             try:
                 current_user.speciality = speciality
-                logger.debug(f"Updated current_user: {vars(current_user)}")
+                current_user.password = generate_password_hash(password, method="pbkdf2:sha256")
+                # logger.debug(f"Updated current_user: {vars(current_user)}")
                 db.session.commit()
-                flash("Profile updated successfully!", category="success")
+                # flash("Profile updated successfully!", category="success")
                 return redirect(url_for("views.home"))
             except Exception as e:
                 db.session.rollback()
-                error_msg = f"An error occurred: {str(e)}"
-                logger.error(error_msg, exc_info=True)
-                flash(error_msg, category="error")
+               
         else:
             flash("Speciality is required", category="error")
 

@@ -50,55 +50,94 @@
           retrieve. Defaults to 1 if not specified. If the number is out of
           range, available questions will be retrieved.
         </li>
+
+        <li>
+          <strong>type</strong> (optional): Gets either culture fit or technical
+          questions. Defaults to technical questions if not specified. Returns a
+          response of invalid if the type is invalid.
+        </li>
       </ul>
 
       <h3>Response</h3>
       <p>Returns a JSON object containing an array of question objects.</p>
       <pre>
-{
-    "data": [
         {
-            "id": 1,
-            "question": "What is your greatest strength?",
-            "user_id": 2,
-            "domain": "Software Engineering",
-            "date_created": "2024-10-01 12:34:56"
-        },
-        {
-            "id": 2,
-            "question": "Describe a challenge you faced.",
-            "user_id": 3,
-            "domain": "Mechanical Engineering",
-            "date_created": "2024-10-02 14:20:45"
+            "data": [
+                {
+                    "id": 1,
+                    "question": "What is your greatest strength?",
+                    "user_id": 2,
+                    "domain": "Software Engineering",
+                    "date_created": "2024-10-01 12:34:56"
+                }
+            ]
         }
-    ]
-}</pre
-      >
+      </pre>
 
-      <h3>Example Request</h3>
-      <pre>GET /api/questions?count=5</pre>
+      <h3>Example Request with count</h3>
+      <pre>GET /api/questions?count=2</pre>
 
       <h3>Example Response</h3>
       <pre>
-{
-    "data": [
+          {
+            "data": [
+                {
+                    "id": 3,
+                    "question": "Tell me about a time you demonstrated leadership.",
+                    "user_id": 2,
+                    "domain": "Software Engineering",
+                    "date_created": "2024-10-01 12:45:30"
+                },
+                {
+                    "id": 5,
+                    "question": "How do you prioritize your tasks?",
+                    "user_id": 1,
+                    "domain": "Business Management",
+                    "date_created": "2024-10-01 13:15:22"
+                }
+            ]
+          }
+      </pre>
+
+      <h3>Example Request with type</h3>
+      <pre>GET /api/questions?type=culture</pre>
+
+      <h3>Example Response</h3>
+      <pre>
         {
-            "id": 3,
-            "question": "Tell me about a time you demonstrated leadership.",
-            "user_id": 2,
-            "domain": "Software Engineering",
-            "date_created": "2024-10-01 12:45:30"
-        },
-        {
-            "id": 5,
-            "question": "How do you prioritize your tasks?",
-            "user_id": 1,
-            "domain": "Business Management",
-            "date_created": "2024-10-01 13:15:22"
+          "data": [
+              {
+                  "domain": "Not Relevant",
+                  "id": 2,
+                  "question": "What are your values?",
+                  "user_id": 1
+              }
+          ]
         }
-    ]
-}</pre
-      >
+      </pre>
+
+      <h3>Example Request with count and type</h3>
+      <pre>GET /api/questions?count=2&type=culture</pre>
+
+      <h3>Example Response</h3>
+      <pre>
+        {
+          "data": [
+              {
+                  "domain": "Not Relevant",
+                  "id": 1,
+                  "question": "Tell me about a time you created something innovative",
+                  "user_id": 1
+              },
+              {
+                  "domain": "Not Relevant",
+                  "id": 2,
+                  "question": "What are your values?",
+                  "user_id": 1
+              }
+          ]
+        }
+      </pre>
     </div>
 
     <footer>

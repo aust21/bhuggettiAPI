@@ -68,8 +68,14 @@ def create_app():
 
         # in the future, select random id's first and return the questions from them
         count = request.args.get('count', default=1, type=int)
+        q_type = request.args.get('type', default="technical", type=str)
 
-        questions = TechnicalQuestion.query.order_by(func.random()).limit(count).all()
+        if q_type.lower() == "technical":
+            questions = TechnicalQuestion.query.order_by(func.random()).limit(count).all()
+        elif q_type.lower() == "culture":
+            questions = CultureFitQuestion.query.order_by(func.random()).limit(count).all()
+        else:
+            return jsonify({"data":"invalid question type. Please refer to the docs"})
 
         questions_data = [
             {
