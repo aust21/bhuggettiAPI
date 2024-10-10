@@ -6,8 +6,11 @@ from .views import views
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from oauthlib.oauth2 import WebApplicationClient
-import requests, json
+import requests, json, logging
 sys.path.append(os.getcwd())
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 auth = Blueprint("auth", __name__)
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
@@ -49,22 +52,50 @@ def google_callback():
 
     user_info = userinfo_response.json()
 
-    # Check if the user exists in your DB
     user = User.query.filter_by(email=user_info["email"]).first()
 
     if not user:
         user = User(
             email=user_info["email"],
             name=user_info["name"],
-            password = generate_password_hash(os.urandom(24).hex())
+            password=generate_password_hash(os.urandom(24).hex()),
+            speciality="Not specified"
         )
         db.session.add(user)
         db.session.commit()
+        login_user(user)  # Log in the new user
+        return redirect(url_for('auth.complete_profile'))
 
-    # Log the user in
     login_user(user)
-
     return redirect(url_for("views.home"))
+
+@auth.route("/complete-profile", methods=["GET", "POST"])
+@login_required
+def complete_profile():
+    logger.debug(f"Current user: {current_user}")
+    logger.debug(f"Current user is authenticated: {current_user.is_authenticated}")
+    logger.debug(f"Current user attributes: {vars(current_user)}")
+
+    if request.method == "POST":
+        speciality = request.form.get("speciality")
+        logger.debug(f"Received speciality: {speciality}")
+
+        if speciality:
+            try:
+                current_user.speciality = speciality
+                logger.debug(f"Updated current_user: {vars(current_user)}")
+                db.session.commit()
+                flash("Profile updated successfully!", category="success")
+                return redirect(url_for("views.home"))
+            except Exception as e:
+                db.session.rollback()
+                error_msg = f"An error occurred: {str(e)}"
+                logger.error(error_msg, exc_info=True)
+                flash(error_msg, category="error")
+        else:
+            flash("Speciality is required", category="error")
+
+    return render_template("complete_profile.html", user=current_user)
 
 
 @auth.route("/login/google")
@@ -74,11 +105,9 @@ def login_with_google():
 
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        # redirect_uri=request.base_url + "/callback",
-        redirect_uri="http://127.0.0.1:5000/auth/login/google/callback",
+        redirect_uri=request.base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
-    print(request.base_url + "/callback")
 
     return redirect(request_uri)
 

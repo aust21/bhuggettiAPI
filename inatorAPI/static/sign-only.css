@@ -1,8 +1,30 @@
-input {
+header {
+  transform: translateY(-85%);
+  transition: 2s ease-in-out;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="submit"] {
+  width: 100%;
   border: none;
   border-bottom: 1px solid #000;
+  display: block;
+}
+
+select {
+  width: 100%;
+  border: 1px solid #000;
+  display: block;
+  outline: none;
+  background-color: transparent;
+}
+
+input[type="submit"] {
+  width: 100%;
 }
 
 .entry {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
