@@ -19,7 +19,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     db.init_app(app)
     from .auth import auth
-    from .models import User, QuestionModel
+    from .models import User, TechnicalQuestion, CultureFitQuestion
     from .views import views
 
     app.register_blueprint(auth, url_prefix="/auth")
@@ -69,7 +69,7 @@ def create_app():
         # in the future, select random id's first and return the questions from them
         count = request.args.get('count', default=1, type=int)
 
-        questions = QuestionModel.query.order_by(func.random()).limit(count).all()
+        questions = TechnicalQuestion.query.order_by(func.random()).limit(count).all()
 
         questions_data = [
             {

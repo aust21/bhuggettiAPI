@@ -1,54 +1,57 @@
-{% extends 'base.html' %}
-<!--  -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='signup-login.css') }}"
+    />
 
-{% block title %} bhuggetti | Sign up {% endblock %}
+    <title>Complete profile</title>
+  </head>
+  <body>
+    <main>
+      <section class="flex">
+        <form action="{{ url_for('auth.complete_profile') }}" method="POST">
+          <h3 class="center">Hey {{user.name}}!</h3>
+          <p class="center">please your complete profile</p>
 
-<!--  -->
-{% block content %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='signup-login.css') }}"
-/>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='sign-only.css') }}"
-/>
-<main>
-  <section class="flex">
-    <form action="{{ url_for('auth.complete_profile') }}" method="POST">
-      <h3 class="center">Hey {{user.name}}!</h3>
-      <p class="center">please your complete profile</p>
+          <div class="entry" style="margin: 1rem 0">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
 
-      <div class="entry">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-      </div>
+          <div class="entry" style="margin: 1rem 0">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" required />
+          </div>
 
-      <div class="entry">
-        <label for="company">Company</label>
-        <input type="text" id="company" name="company" required />
-      </div>
+          <div class="entry" style="margin: 1rem 0">
+            <label for="speciality">Role</label>
+            <select name="speciality" id="speciality">
+              <option value="none">Select</option>
+              <option value="recruiter">Recruiter</option>
+              <option value="manager">Manager</option>
+              <option value="hr">HR</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
-      <div class="entry">
-        <label for="speciality">Role</label>
-        <select name="speciality" id="speciality">
-          <option value="none">Select</option>
-          <option value="recruiter">Recruiter</option>
-          <option value="manager">Manager</option>
-          <option value="hr">HR</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
+          <div class="entry" style="margin: 1rem 0">
+            <input type="submit" value="Get started" />
+          </div>
 
-      <div class="entry">
-        <input type="submit" value="Sign up" />
-      </div>
-
-      <p class="dont center">
-        Already have an account?
-        <a href="{{ url_for('auth.login') }}">Login</a>
-      </p>
-    </form>
-  </section>
-</main>
-{% endblock %}
+          <p class="dont center">
+            Already have an account?
+            <a href="{{ url_for('auth.login') }}">Login</a>
+          </p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

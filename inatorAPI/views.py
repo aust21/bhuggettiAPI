@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from .models import QuestionModel
+from .models import CultureFitQuestion, TechnicalQuestion
 from . import db
 
 views = Blueprint("views", __name__)
@@ -8,14 +8,12 @@ views = Blueprint("views", __name__)
 @views.route("/")
 @login_required
 def home():
-    view = request.args.get('view', 'my')
+    view = request.args.get('view', 'culture-fit')
 
-    if view == 'all':
-        # Show all posts
-        posts = QuestionModel.query.all()
+    if view == 'culture-fit':
+        posts = CultureFitQuestion.query.filter_by(user_id=current_user.id).all()
     else:
-        # Show only the current user's posts
-        posts = QuestionModel.query.filter_by(user_id=current_user.id).all()
+        posts = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()
 
     return render_template("dashboard.html", user=current_user, posts=posts, view=view)
 
@@ -25,7 +23,11 @@ def submit_question():
     if request.method == "POST":
         form_question = request.form.get("question")
         industry = request.form.get("category")
-        post = QuestionModel(question=form_question, user_id=current_user.id, domain=industry)
+        field = request.form.get("field")
+        if industry == "technical":
+            post = TechnicalQuestion(question=form_question, user_id=current_user.id, field=industry, domain=field)
+        else:
+            post = CultureFitQuestion(question=form_question, user_id=current_user.id, field=industry, domain=field)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('views.home'))

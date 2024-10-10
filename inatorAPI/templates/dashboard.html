@@ -62,16 +62,16 @@
 
         <div class="btns flex">
           <a
-            href="{{ url_for('views.home', view='my') }}"
-            class="{% if view == 'my' %}active{% endif %}"
+            href="{{ url_for('views.home', view='culture-fit') }}"
+            class="{% if view == 'culture-fit' %}active{% endif %}"
           >
-            View my Posts
+            Culture fit questions
           </a>
           <a
-            href="{{ url_for('views.home', view='all') }}"
-            class="{% if view == 'all' %}active{% endif %}"
+            href="{{ url_for('views.home', view='technical') }}"
+            class="{% if view == 'technical' %}active{% endif %}"
           >
-            View all Posts
+            Technical questions
           </a>
         </div>
       </div>
