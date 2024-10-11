@@ -21,9 +21,11 @@ def create_app():
     from .auth import auth
     from .models import User, TechnicalQuestion, CultureFitQuestion
     from .views import views
+    from .admin import admin
 
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(views, url_prefix="/dash")
+    app.register_blueprint(admin, url_prefix="/admin")
 
 
     with app.app_context():

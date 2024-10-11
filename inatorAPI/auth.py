@@ -118,10 +118,14 @@ def login():
         password = request.form.get("password")
 
         user = User.query.filter_by(email=email).first()
+        
         if user:
             if check_password_hash(user.password, password):
                 flash("Logged in", category="success")
                 login_user(user, remember=True)
+                
+                if user.is_admin:
+                    return redirect(url_for("admin.admin_dash"))
                 return redirect(url_for("views.home"))
             else:
                 flash("Password is incorrect", category="error")
