@@ -26,6 +26,8 @@ def home():
 @login_required
 def delete_post(id, field):
     
+    view = request.args.get('view', 'all')
+
     if field == "culture-fit":
         post = CultureFitQuestion.query.filter_by(id=id).first()
     else:
@@ -38,11 +40,13 @@ def delete_post(id, field):
         db.session.commit()
         flash("Post deleted", category="success")
 
-    return redirect(url_for("views.home"))
+    return redirect(url_for("views.home", view=view))
 
 @views.route("/submit-question", methods=["GET", "POST"])
 @login_required
 def submit_question():
+    view = request.args.get('view', 'all')
+
     if request.method == "POST":
         form_question = request.form.get("question")
         industry = request.form.get("category")
@@ -53,7 +57,8 @@ def submit_question():
             post = CultureFitQuestion(question=form_question, user_id=current_user.id, field=industry, domain=field)
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('views.home'))
+        return redirect(url_for('views.home', user=current_user, view=view))
+    
 # Add this context processor to make current_user available in all templates
 @views.context_processor
 def inject_user():
