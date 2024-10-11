@@ -15,47 +15,42 @@
   <body>
     <!-- Navigation Bar -->
     <header id="nav">
-      <nav>
+      <nav class="flex">
         <li>
           <a href="{{ url_for('index') }}" class="logo">bhuggetti</a>
         </li>
-        <ul class="first-ul">
-          <li><a href="{{ url_for('docs') }}">Read Docs</a></li>
-          {% if current_user.is_authenticated %}
-          <li>
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-          </li>
-          {% else %} {% endif %}
+        <li class="docs"><a href="{{ url_for('docs') }}">Read Docs</a></li>
+        <ul class="nav-ul flex">
+          <ul class="first-ul">
+            <li>
+              <a href="{{ url_for('auth.logout') }}">Logout</a>
+            </li>
+          </ul>
         </ul>
 
-        <ul>
-          {% if current_user.is_authenticated %}
-          <form action="{{ url_for('search') }}" method="GET">
-            <input
-              class="s-bar"
-              type="text"
-              name="query"
-              placeholder="Search..."
-            />
-          </form>
-          {% else %}
-          <button class="sign">
-            <a href="{{ url_for('login') }}" class="last">Login</a>
-          </button>
-          {% endif %}
-
-          <button
-            class="in-nav"
-            type="button"
-            name="button"
-            aria-expanded="false"
-          >
-            Menu
-          </button>
+        <button
+          class="toggle"
+          type="button"
+          name="button"
+          aria-expanded="false"
+        >
+          Menu
+        </button>
+        <ul
+          id="navigation"
+          class="navigation flex"
+          data-visible="false"
+          aria-hidden="true"
+        >
+          <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+          <li><a href="{{ url_for('auth.sign_up') }}">Sign up</a></li>
+          <li><a href="{{ url_for('docs') }}">Read the docs</a></li>
         </ul>
       </nav>
     </header>
 
     <div>{% block content %} {% endblock %}</div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
 </html>

@@ -1,183 +1,127 @@
 header {
   position: fixed;
-  top: 1rem;
+  top: 1.2rem;
   left: 0;
-  width: 100%;
-  z-index: 1111111;
-  transition: all 0.5s ease-in-out;
-  overflow: hidden;
-  margin: 0 auto;
+  right: 0;
+  z-index: 1111;
 }
 
 header > nav {
-  width: 90%;
-  margin: 0 auto;
-  background: #000;
+  background-color: #4e8075;
   padding: 1.9rem 1.8rem;
-  border-radius: 10px;
-  /* border-bottom-right-radius: 20px; */
+  width: 90%;
+  border-radius: 6px;
+  margin: 0 auto;
 }
 
-.s-bar {
-  outline: none;
-  border: none;
-  border-radius: 10px;
-  padding: .3rem .6rem;
+.logo,
+li > a {
+  color: #fff;
 }
 
-@media (hover) {
-  .scrolled {
-    transform: translateY(-67%);
-    overflow: hidden;
-  }
-
-  .scrolled:hover {
-    transform: translateY(0%);
-    overflow: hidden;
-  }
-}
-
-header > nav,
-nav > ul {
-  display: flex;
+nav.flex {
   justify-content: space-between;
-  align-items: center;
 }
 
-.logo {
-  font-family: "Montserrat", sans-serif;
+.nav-ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-ul > li {
+  margin-right: 1rem;
+  position: relative;
+}
+
+.nav-ul > li > a {
   color: #fff;
+  text-decoration: none;
 }
 
-header > nav > ul > li {
-  margin-inline: 1rem;
+.nav-services {
+  position: relative;
 }
 
-header > nav > ul > li > a {
-  color: #fff;
-}
-
-header > nav > ul > li > a::before {
-  content: "";
+.services-dropdown {
+  display: none;
   position: absolute;
-  width: 0%;
-  height: 2px;
-  background-color: rgb(0, 0, 0);
-  bottom: -4%;
-  transition: 500ms all;
-}
-
-header > nav > ul > li > a:hover::before {
-  width: 100%;
-}
-
-.toggle {
-  position: absolute;
-  z-index: 11111;
-  left: 2%;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px;
   overflow: hidden;
 }
 
-.in-nav {
+header > nav > ul > li {
+  margin-right: 1rem;
+}
+
+nav > a > img {
+  width: 5rem;
+}
+
+nav > button {
   display: none;
 }
+
+.navigation {
+  background-color: #3d4a3d;
+  transition: transform 350ms ease-in-out;
+}
+
+.toggle {
+  z-index: 11111111;
+}
+
 /* side menu */
 .navigation {
-  /* background: rgba(0, 0, 0, 0.8); */
-  transition: all 350ms ease-out;
   position: fixed;
   flex-direction: column;
   justify-content: initial;
   gap: 2rem;
   inset: 0 0 0 73%;
   padding: 10rem 2rem;
-  /*  */
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  z-index: 333333333333;
-  transform: translateX(87%) !important;
-}
-
-.navigation > .flex {
-  flex-direction: column;
-}
-
-.navigation > .flex > li {
-  margin: 2rem 0;
-}
-
-.sign {
-  background-color: azure;
-  padding: 0.3rem 1rem;
+  transform: translateX(100%);
+  z-index: 111111;
+  transition: transform 350ms ease-in-out;
 }
 
 .navigation[data-visible="true"] {
-  transform: translateX(0%) !important;
-  background-color: #fff;
+  transform: translateX(0%);
 }
 
-.toggle > img {
-  width: 2.5rem;
-  transition: all 0.5s ease-in-out;
+.navigation {
+  inset: 0 0 0 40%;
 }
 
-.navigation[data-visible="true"] .toggle > img {
-  transform: rotate(180deg);
-}
-
-/* @supports (backdrop-filter: blur(6rem)) {
-    .navigation {
-      background: hsl(0 0% 100% /0.1);
-      backdrop-filter: blur(6rem);
-    }
-  } */
-
-@media (max-width: 50em) {
+@media (max-width: 48em) {
   .navigation {
     inset: 0 0 0 40%;
   }
+  .nav-ul {
+    display: none;
+  }
 
-  .in-nav {
+  nav > button {
     display: block;
+    background: transparent;
+    color: #fff;
   }
 
-  header > nav > ul > button::before {
+  nav > a > img {
+    width: 2.5rem;
+  }
+  .docs {
     display: none;
-  }
-
-  .first-ul {
-    display: none;
-  }
-
-  header > nav {
-    /* position: fixed; */
-    width: 90%;
-    padding: 1rem 1.5rem;
-    margin: 0 auto;
-    margin-top: 0.5rem;
-    border-radius: 10px;
-  }
-
-  nav ul:not(:last-of-type) > li {
-    display: none;
-  }
-
-  .sign {
-    display: none;
-  }
-  .last {
-    display: none;
-  }
-
-  .navigation {
-    transform: translateX(100%) !important;
   }
 }
 
-@media (min-width: 55em) {
-  .fix {
-    display: flex;
+@media (max-width: 48em) and (max-width: 64em) {
+  .nav-ul {
+    display: none;
   }
 }

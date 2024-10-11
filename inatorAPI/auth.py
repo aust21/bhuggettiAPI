@@ -57,7 +57,8 @@ def google_callback():
             email=user_info["email"],
             name=user_info["name"],
             password=generate_password_hash(os.urandom(24).hex()),
-            speciality="Not specified"
+            speciality="Not specified",
+            company="Not specified"
         )
         db.session.add(user)
         db.session.commit()
@@ -77,21 +78,21 @@ def complete_profile():
     if request.method == "POST":
         speciality = request.form.get("speciality")
         password = request.form.get("password")
+        company = request.form.get("company")
         # logger.debug(f"Received speciality: {speciality}")
 
-        if speciality:
-            try:
-                current_user.speciality = speciality
-                current_user.password = generate_password_hash(password, method="pbkdf2:sha256")
-                # logger.debug(f"Updated current_user: {vars(current_user)}")
-                db.session.commit()
-                # flash("Profile updated successfully!", category="success")
-                return redirect(url_for("views.home"))
-            except Exception as e:
-                db.session.rollback()
+        
+        try:
+            current_user.speciality = speciality
+            current_user.password = generate_password_hash(password, method="pbkdf2:sha256")
+            current_user.company = company
+            # logger.debug(f"Updated current_user: {vars(current_user)}")
+            db.session.commit()
+            # flash("Profile updated successfully!", category="success")
+            return redirect(url_for("views.home"))
+        except Exception as e:
+            db.session.rollback()
                
-        else:
-            flash("Speciality is required", category="error")
 
     return render_template("complete_profile.html", user=current_user)
 
@@ -138,13 +139,14 @@ def sign_up():
         password = request.form.get("password")
         speciality = request.form.get("speciality")
         name = request.form.get("name")
+        company = request.form.get("company")
 
         email_exists = User.query.filter_by(email=email).first()
         if email_exists:
             flash('Email exists', category='error')
         else:
             new_user = User(email=email, name=name, speciality=speciality, 
-                            password=generate_password_hash(password, method="pbkdf2:sha256"))
+                            password=generate_password_hash(password, method="pbkdf2:sha256"), company=company)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

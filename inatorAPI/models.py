@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(150), nullable=False)
     speciality = db.Column(db.String(100), nullable=False)
+    company = db.Column(db.String(100), nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     culture_fit_questions = db.relationship('CultureFitQuestion', backref='user', passive_deletes=True)
     technical_questions = db.relationship('TechnicalQuestion', backref='user', passive_deletes=True)
