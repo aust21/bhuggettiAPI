@@ -25,10 +25,7 @@
           <li>
             <a href="{{ url_for('auth.logout') }}">Logout</a>
           </li>
-          {% else %}
-
-          <li><a href="{{ url_for('about') }}">About Us</a></li>
-          {% endif %}
+          {% else %} {% endif %}
         </ul>
 
         <ul>

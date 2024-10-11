@@ -76,6 +76,9 @@ def create_app():
             questions = CultureFitQuestion.query.order_by(func.random()).limit(count).all()
         else:
             return jsonify({"data":"invalid question type. Please refer to the docs"})
+        
+        if len(questions) == 0:
+            return jsonify({"data": "there are no questions yet for this field"})
 
         questions_data = [
             {
