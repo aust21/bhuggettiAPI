@@ -62,7 +62,7 @@ def google_callback():
         )
         db.session.add(user)
         db.session.commit()
-        login_user(user)  # Log in the new user
+        login_user(user, remember=True)
         return redirect(url_for('auth.complete_profile'))
 
     login_user(user)
