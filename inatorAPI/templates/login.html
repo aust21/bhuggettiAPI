@@ -1,5 +1,3 @@
-{% block content %} {% endblock %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,6 +16,17 @@
     <title>Login</title>
   </head>
   <body>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %}
+    <div id="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">
+        <span>{{ message }}</span>
+        <button class="close-btn" onclick="closeFlashMessage()">×</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
     <main>
       <section class="flex">
         <form action="{{ url_for('auth.login')}}" method="POST">
@@ -55,5 +64,7 @@
         </form>
       </section>
     </main>
+
+    <script src="../static/flash.js"></script>
   </body>
 </html>
