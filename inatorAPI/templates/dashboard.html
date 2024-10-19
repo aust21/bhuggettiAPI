@@ -6,12 +6,12 @@
 <!--  -->
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='dash.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}" />
 <link
   href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
   rel="stylesheet"
 />
-<!-- My CSS -->
-<link rel="stylesheet" href="{{ url_for('static', filename='cpanel.css') }}" />
+
 <main>
   <section id="sidebar">
     <a href="#" class="brand">
@@ -70,14 +70,7 @@
     <nav>
       <i class="bx bx-menu"></i>
       <!-- <a href="#" class="nav-link">Categories</a> -->
-      <form action="#">
-        <div class="form-input">
-          <input type="search" placeholder="Search..." />
-          <button type="submit" class="search-btn">
-            <i class="bx bx-search"></i>
-          </button>
-        </div>
-      </form>
+      <span></span>
       <input type="checkbox" id="switch-mode" hidden />
       <label for="switch-mode" class="switch-mode"></label>
       <p>Hey {{user.name}}</p>
@@ -151,8 +144,6 @@
         <div class="todo">
           <div class="head">
             <h3>Post a Question</h3>
-            <i class="bx bx-plus"></i>
-            <i class="bx bx-filter"></i>
           </div>
           <form
             id="questionForm"

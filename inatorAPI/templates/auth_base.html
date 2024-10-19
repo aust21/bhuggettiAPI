@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %} bhuggetti {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}" />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='signup-login.css') }}"
+    />
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %}
+    <div id="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">
+        <span>{{ message }}</span>
+        <button class="close-btn" onclick="closeFlashMessage()">×</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+    <div>{% block content %} {% endblock %}</div>
+
+    <script src="../static/flash.js"></script>
+  </body>
+</html>

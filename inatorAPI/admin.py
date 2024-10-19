@@ -10,9 +10,11 @@ admin = Blueprint("admin", __name__)
 def admin_dash():
     culture_questions = CultureFitQuestion.query.all()
     tech_qustions = TechnicalQuestion.query.all()
+    users = len(User.query.all()) - 1
     posts = culture_questions + tech_qustions
     posts.sort(key=lambda x: x.date_created, reverse=True)
-    return render_template("control_panel.html", posts=posts, tech=len(tech_qustions), cult=len(culture_questions), all=len(posts), user = current_user)
+    return render_template("control_panel.html", posts=posts, tech=len(tech_qustions), 
+                           cult=len(culture_questions), all=len(posts), user = current_user, users=users)
 
 @admin.route("/admin/dashbord/view-posts")
 @login_required

@@ -121,7 +121,6 @@ def login():
         
         if user:
             if check_password_hash(user.password, password):
-                flash("Logged in", category="success")
                 login_user(user, remember=True)
                 
                 if user.is_admin:
@@ -130,6 +129,7 @@ def login():
             else:
                 flash("Password is incorrect", category="error")
         else:
+            flash("Account not found", category="error")
             redirect(url_for("sign_up"))
 
     return render_template("login.html")
@@ -140,10 +140,10 @@ def sign_up():
 
     if request.method == "POST":
         email = request.form.get("email")
-        password = request.form.get("password")
-        speciality = request.form.get("speciality")
         name = request.form.get("name")
-        company = request.form.get("company")
+        password=generate_password_hash(os.urandom(24).hex())
+        speciality="Not specified"
+        company="Not specified"
 
         email_exists = User.query.filter_by(email=email).first()
         if email_exists:
@@ -154,8 +154,8 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('User created')
-            return redirect(url_for("views.home"))
+            
+            return redirect(url_for('auth.complete_profile'))
 
     return render_template("sign-up.html")
 

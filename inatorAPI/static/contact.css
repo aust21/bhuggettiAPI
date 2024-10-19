@@ -1,0 +1,43 @@
+.head {
+  text-align: center;
+  margin: 1rem;
+  font-size: 2rem;
+}
+
+:root {
+  --form-background: #faf7ff;
+  --card-background: #dadde2;
+}
+
+header {
+  display: none;
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+select,
+textarea {
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+button[type="submit"] {
+  background-color: #007557;
+  padding: 0.4rem 1.6rem;
+  margin: 0.7rem 0;
+  border-radius: 5px;
+  color: #fff;
+}

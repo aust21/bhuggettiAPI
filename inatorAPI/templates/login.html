@@ -1,70 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='signup-login.css') }}"
-    />
+{% extends 'auth_base.html' %} {% block title %} bhuggetti API | Login {%
+endblock %} {% block content %}
 
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='index.css') }}"
-    />
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
 
-    <title>Login</title>
-  </head>
-  <body>
-    {% with messages = get_flashed_messages(with_categories=True) %} {% if
-    messages %}
-    <div id="flash-container">
-      {% for category, message in messages %}
-      <div class="flash-message {{ category }}">
-        <span>{{ message }}</span>
-        <button class="close-btn" onclick="closeFlashMessage()">×</button>
+<main>
+  <section class="flex">
+    <form action="{{ url_for('auth.login')}}" method="POST">
+      <h3 class="center">Welcome back</h3>
+      <div class="entry">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
       </div>
-      {% endfor %}
-    </div>
-    {% endif %} {% endwith %}
-    <main>
-      <section class="flex">
-        <form action="{{ url_for('auth.login')}}" method="POST">
-          <h3 class="center">Welcome back</h3>
-          <div class="entry">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
-          </div>
 
-          <div class="entry">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required />
-          </div>
+      <div class="entry">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
 
-          <div class="entry">
-            <input type="submit" value="Sign in" />
-          </div>
+      <div class="entry"><link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='signup-login.css') }}"
+      />
+        <input type="submit" value="Sign in" />
+      </div>
 
-          <p class="dont center">
-            Don't have an account?
-            <a href="{{ url_for('auth.sign_up') }}">Sign up</a>
-          </p>
+      <p class="dont center">
+        Don't have an account?
+        <a href="{{ url_for('auth.sign_up') }}">Sign up</a>
+      </p>
 
-          <p class="or">or</p>
+      <p class="or">or</p>
 
-          <a
-            href="{{ url_for('auth.login_with_google') }}"
-            class="login-with-google-btn flex"
-            ><img
-              class="g-logo"
-              src="../static/img/g.svg"
-              alt="google logo"
-            />Sign in with Google</a
-          >
-        </form>
-      </section>
-    </main>
-
-    <script src="../static/flash.js"></script>
-  </body>
-</html>
+      <a
+        href="{{ url_for('auth.login_with_google') }}"
+        class="login-with-google-btn flex"
+        ><img class="g-logo" src="../static/img/g.svg" alt="google logo" />Sign
+        in with Google</a
+      >
+    </form>
+  </section>
+  {% endblock %}
+</main>
