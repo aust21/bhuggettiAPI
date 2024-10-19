@@ -10,17 +10,18 @@ views = Blueprint("views", __name__)
 def home():
     view = request.args.get('view', 'all')
 
-    if view == 'culture-fit':
-        posts = CultureFitQuestion.query.filter_by(user_id=current_user.id).all()
-    elif view == 'technical':
-        posts = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()
-    else:
-         # view all posts (both culture-fit and technical)
-        culture_fit_posts = CultureFitQuestion.query.filter_by(user_id=current_user.id).all()
-        technical_posts = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()
-        posts = culture_fit_posts + technical_posts 
+    cult = CultureFitQuestion.query.filter_by(user_id=current_user.id).all()
+    tech = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()
+    all = cult + tech
 
-    return render_template("dashboard.html", user=current_user, posts=posts, view=view)
+    if view == 'culture-fit':
+        posts = cult
+    elif view == 'technical':
+        posts = tech
+    else:
+        posts = all
+
+    return render_template("dashboard.html", user=current_user, posts=posts, view=view, cult=len(cult), all=len(all), tech=len(tech))
 
 @views.route("/delete-post/<field>/<id>")
 @login_required

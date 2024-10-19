@@ -1,11 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Users</h1>
-  </body>
-</html>
+{% extends 'base.html' %}
+<!--  -->
+
+{% block title %} bhuggetti API | My dashbord {% endblock %}
+
+<!--  -->
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dash.css') }}" />
+<main>
+  <section class="sec">
+    <div class="holder flex">
+      <div class="sec__container">
+        <div class="cards masonry-grid">
+          {% for i in posts %}
+          <div class="card">
+            <!-- <p class="name">By: {{i.user.name}}</p> -->
+            <div class="details">
+              <div class="speciality flex">
+                <p>{{i.domain}}</p>
+                <button>
+                  <a
+                    href="{{ url_for('views.delete_post', id=i.id, field=i.field, view=view) }}"
+                  >
+                    <svg
+                      class="bin"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
+                      />
+                    </svg>
+                  </a>
+                </button>
+              </div>
+              <p class="question">{{i.question}}</p>
+              <!-- <p class="date_created">{{i.date_created}}</p> -->
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="submit_form_outer">
+        <div class="submit_form">
+          <h3>Post a question</h3>
+          <div class="form">
+            <form
+              id="questionForm"
+              method="POST"
+              action="{{ url_for('views.submit_question', view=view)}}"
+            >
+              <div class="q-entry">
+                <label for="category">Question Type</label>
+                <select name="category" id="category">
+                  <option value="none">Select</option>
+                  <option value="culture-fit">Culture Fit Question</option>
+                  <option value="technical">Technical Question</option>
+                </select>
+              </div>
+
+              <div class="q-entry">
+                <label for="field">Question Field</label>
+                <select name="field" id="field">
+                  <option value="none">Select</option>
+                  <option value="Architecture">Architecture</option>
+                  <option value="Software ENG">Software Engineering</option>
+                  <option value="Business Management">
+                    Business Management
+                  </option>
+                  <option value="Mechanical Engineering">
+                    Mechanical Engineering
+                  </option>
+                  <option value="Not Relevant">Not Relevant</option>
+                </select>
+              </div>
+
+              <div class="q-entry">
+                <label for="question">Question</label>
+                <textarea name="question" id="question" required></textarea>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <p class="filter center" style="margin-top: 1rem">Filter questions</p>
+        <div class="btns flex">
+          <a
+            href="{{ url_for('views.home', view='culture-fit') }}"
+            class="{% if view == 'culture-fit' %}active{% endif %}"
+          >
+            Culture
+          </a>
+          <a
+            href="{{ url_for('views.home', view='technical') }}"
+            class="{% if view == 'technical' %}active{% endif %}"
+          >
+            Technical
+          </a>
+
+          <a
+            href="{{ url_for('views.home', view='all') }}"
+            class="{% if view == 'all' %}active{% endif %}"
+          >
+            All
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const select = document.getElementById("field");
+  let options = Array.from(select.options);
+
+  // Remove the "Select" option from sorting
+  const selectOption = options.shift();
+
+  // Sort options alphabetically by their text
+  options.sort((a, b) => a.text.localeCompare(b.text));
+
+  // Add the "Select" option back at the beginning
+  options.unshift(selectOption);
+
+  // Rebuild the select options
+  select.innerHTML = "";
+  options.forEach((option) => select.add(option));
+</script>
+{% endblock %}
