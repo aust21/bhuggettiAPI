@@ -146,6 +146,7 @@
                 <tr>
                   <th>User</th>
                   <th>Question</th>
+                  <th>Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -158,8 +159,14 @@
                   <td>
                     <span class="question">{{post.question}}</span>
                   </td>
-                  <td class="date">
+                  <td>
                     <span class="status completed">{{post.date_created}}</span>
+                  </td>
+                  <td>
+                    <a
+                      href="{{ url_for('admin.delete_post', id=post.id, field=post.field, view=view) }}"
+                      ><i class="bx bxs-trash-alt"></i
+                    ></a>
                   </td>
                 </tr>
                 {% endfor %}

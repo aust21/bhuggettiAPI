@@ -43,6 +43,8 @@ def delete_post(id, field):
 
     return redirect(url_for("views.home", view=view))
 
+
+
 @views.route("/submit-question", methods=["GET", "POST"])
 @login_required
 def submit_question():

@@ -1,8 +1,30 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, Blueprint, request, flash, redirect, url_for
 from .models import TechnicalQuestion, CultureFitQuestion, User
 from flask_login import login_required, current_user
+from . import db
 
 admin = Blueprint("admin", __name__)
+
+
+@admin.route("/delete-post/<field>/<id>")
+@login_required
+def delete_post(id, field):
+    
+    view = request.args.get('view', 'all')
+
+    if field == "culture-fit":
+        post = CultureFitQuestion.query.filter_by(id=id).first()
+    else:
+        post = TechnicalQuestion.query.filter_by(id=id).first()
+
+    if not post:
+        flash("Post does not exist", category="error")
+    elif current_user.id == post.user_id:
+        db.session.delete(post)
+        db.session.commit()
+        flash("Post deleted", category="success")
+
+    return redirect(url_for("admin.admin_dash", view=view))
 
 
 @admin.route("/dashboard")
