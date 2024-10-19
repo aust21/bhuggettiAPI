@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='settings.css') }}"
+    />
+    <title>bhuggetiAPI | Settings</title>
+  </head>
+  <body>
+    <form action="{{ url_for('views.update_settings') }}" method="POST">
+      <form
+        action="{{ url_for('views.upload_profile_image') }}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <input type="file" name="profile_image" />
+          <button type="submit">Upload</button>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="{{ user.name }}"
+            required
+          />
+        </div>
+
+        <!-- Display user's current email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="{{ user.email }}"
+            required
+          />
+        </div>
+
+        <!-- Display user's current company -->
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            value="{{ user.company }}"
+          />
+        </div>
+
+        <!-- Submit button to update user details -->
+        <input type="submit" value="Update Details" />
+      </form>
+    </form>
+    <div class="form-group">
+      <label>Danger Zone:</label>
+      <form action="{{ url_for('views.delete_account') }}" method="POST">
+        <input
+          type="submit"
+          value="Delete Account"
+          style="background-color: #ff4d4d; color: white"
+        />
+      </form>
+    </div>
+  </body>
+</html>

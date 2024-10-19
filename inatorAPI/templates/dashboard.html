@@ -16,7 +16,7 @@
   <section id="sidebar">
     <a href="#" class="brand">
       <i class="bx bx-happy-heart-eyes bx-spin"></i>
-      <span class="text">bhuggetiAPI</span>
+      <span class="text">bhuggettiAPI</span>
     </a>
     <ul class="side-menu top">
       <li class="active">
@@ -55,6 +55,12 @@
     </ul>
     <ul class="side-menu">
       <li>
+        <a href="{{ url_for('views.settings', id=user.id) }}">
+          <i class="bx bxs-log-out-circle"></i>
+          <span class="text">Settings</span>
+        </a>
+      </li>
+      <li>
         <a href="{{ url_for('auth.logout') }}" class="logout">
           <i class="bx bxs-log-out-circle"></i>
           <span class="text">Logout</span>
@@ -75,7 +81,10 @@
       <label for="switch-mode" class="switch-mode"></label>
       <p>Hey {{user.name}}</p>
       <a href="#" class="profile">
-        <img src="../static/img/me.jpeg" />
+        <img
+          src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+          alt="Profile Image"
+        />
       </a>
     </nav>
     <!-- NAVBAR -->
@@ -208,40 +217,6 @@
 
     menuBar.addEventListener("click", function () {
       sidebar.classList.toggle("hide");
-    });
-
-    const searchButton = document.querySelector(
-      "#content nav form .form-input button"
-    );
-    const searchButtonIcon = document.querySelector(
-      "#content nav form .form-input button .bx"
-    );
-    const searchForm = document.querySelector("#content nav form");
-
-    searchButton.addEventListener("click", function (e) {
-      if (window.innerWidth < 576) {
-        e.preventDefault();
-        searchForm.classList.toggle("show");
-        if (searchForm.classList.contains("show")) {
-          searchButtonIcon.classList.replace("bx-search", "bx-x");
-        } else {
-          searchButtonIcon.classList.replace("bx-x", "bx-search");
-        }
-      }
-    });
-
-    if (window.innerWidth < 768) {
-      sidebar.classList.add("hide");
-    } else if (window.innerWidth > 576) {
-      searchButtonIcon.classList.replace("bx-x", "bx-search");
-      searchForm.classList.remove("show");
-    }
-
-    window.addEventListener("resize", function () {
-      if (this.innerWidth > 576) {
-        searchButtonIcon.classList.replace("bx-x", "bx-search");
-        searchForm.classList.remove("show");
-      }
     });
 
     const switchMode = document.getElementById("switch-mode");

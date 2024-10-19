@@ -17,6 +17,8 @@ def create_app():
     app = Flask(__name__, static_folder='static', template_folder='templates')
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'profile_pics')
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
     db.init_app(app)
     from .auth import auth
     from .models import User, TechnicalQuestion, CultureFitQuestion
