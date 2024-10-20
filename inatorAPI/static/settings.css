@@ -1,16 +1,20 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+div.flex {
+  justify-content: space-between;
+  width: 60%;
+  margin: 0 auto;
+  background-color: #fff5ff;
+  padding: 1rem;
+  border-radius: 5px;
+  position: relative;
 }
 
-.settings-container {
-  max-width: 600px;
-  margin: 50px auto;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.home {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: #889fa5;
+  padding: .4rem;
+  border-radius: 5px;
 }
 
 h2 {
@@ -24,21 +28,21 @@ form {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin: 1rem 0;
 }
 
 label {
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 0.9rem;
 }
 
 input[type="text"],
-input[type="email"],
-input[type="submit"] {
+input[type="email"] {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  background-color: #fff5ff;
+  margin-top: 0.5rem;
+  padding: 0.4rem;
 }
 
 input[type="submit"] {
@@ -46,6 +50,10 @@ input[type="submit"] {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
+  padding: 10px;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
 }
 
 input[type="submit"]:hover {
@@ -73,4 +81,131 @@ input[type="submit"]:hover {
 .message {
   text-align: center;
   margin-top: 20px;
+}
+
+.img > img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.side {
+  width: 40%;
+}
+
+.side > form > .form-group > label {
+  margin-top: 0.6rem;
+  display: block;
+}
+
+#file-upload {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  color: #333;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.custom-file-upload:hover {
+  background-color: #ddd;
+}
+
+.forms {
+  width: 50%;
+}
+
+.st.flex {
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0;
+}
+
+#file-name {
+  width: 50%;
+  overflow: hidden;
+}
+
+button[type="submit"] {
+  outline: none;
+  background-color: #43655a;
+  border: 0;
+  border-radius: 5px;
+  padding: 0.3rem 1rem;
+}
+
+#flash-container {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flash-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 300px;
+}
+
+.flash-message.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.flash-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.flash-message.info {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.flash-message .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: inherit;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 48em) {
+  div.flex,
+  .st.flex {
+    flex-direction: column;
+  }
+
+  .side,
+  .forms,
+  div.flex {
+    width: 100%;
+  }
+
+  #file-name {
+    text-align: center;
+    width: 50%;
+  }
 }

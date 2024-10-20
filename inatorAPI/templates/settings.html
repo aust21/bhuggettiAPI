@@ -7,67 +7,120 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='settings.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
     <title>bhuggetiAPI | Settings</title>
   </head>
   <body>
-    <form action="{{ url_for('views.update_settings') }}" method="POST">
-      <form
-        action="{{ url_for('views.upload_profile_image') }}"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <div class="form-group">
-          <input type="file" name="profile_image" />
-          <button type="submit">Upload</button>
-        </div>
-
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value="{{ user.name }}"
-            required
-          />
-        </div>
-
-        <!-- Display user's current email -->
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value="{{ user.email }}"
-            required
-          />
-        </div>
-
-        <!-- Display user's current company -->
-        <div class="form-group">
-          <label for="company">Company</label>
-          <input
-            type="text"
-            id="company"
-            name="company"
-            value="{{ user.company }}"
-          />
-        </div>
-
-        <!-- Submit button to update user details -->
-        <input type="submit" value="Update Details" />
-      </form>
-    </form>
-    <div class="form-group">
-      <label>Danger Zone:</label>
-      <form action="{{ url_for('views.delete_account') }}" method="POST">
-        <input
-          type="submit"
-          value="Delete Account"
-          style="background-color: #ff4d4d; color: white"
-        />
-      </form>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %}
+    <div id="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">
+        <span>{{ message }}</span>
+        <button class="close-btn" onclick="closeFlashMessage()">×</button>
+      </div>
+      {% endfor %}
     </div>
+    {% endif %} {% endwith %}
+    <section class="flex">
+      <div class="flex">
+        <a href="{{ url_for('views.home') }}" class="home">Home</a>
+        <div class="side">
+          <div class="img">
+            <img
+              src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+              alt="Profile Image"
+            />
+          </div>
+          <form
+            action="{{ url_for('views.upload_profile_image') }}"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label for="file-upload" class="custom-file-upload">
+                Choose File
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                name="profile_image"
+                onchange="displayFileName()"
+              />
+              <div class="st flex">
+                <span id="file-name">No file chosen</span>
+                <button type="submit">Upload</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="forms">
+          <form action="{{ url_for('views.update_settings') }}" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ user.name }}"
+                required
+              />
+            </div>
+
+            <!-- Display user's current email -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ user.email }}"
+                required
+              />
+            </div>
+
+            <!-- Display user's current company -->
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                value="{{ user.company }}"
+              />
+            </div>
+
+            <!-- Submit button to update user details -->
+            <input type="submit" value="Update Details" />
+          </form>
+          <div class="form-group">
+            <label>Danger Zone:</label>
+            <form action="{{ url_for('views.delete_account') }}" method="POST">
+              <input
+                type="submit"
+                value="Delete Account"
+                style="background-color: #ff4d4d; color: white"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="../static/flash.js"></script>
+    <script>
+      function displayFileName() {
+        const fileInput = document.getElementById("file-upload");
+        const fileNameDisplay = document.getElementById("file-name");
+
+        if (fileInput.files.length > 0) {
+          fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+          fileNameDisplay.textContent = "No file chosen";
+        }
+      }
+    </script>
   </body>
 </html>

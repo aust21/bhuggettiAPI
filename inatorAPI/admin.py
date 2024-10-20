@@ -19,10 +19,10 @@ def delete_post(id, field):
 
     if not post:
         flash("Post does not exist", category="error")
-    elif current_user.id == post.user_id:
-        db.session.delete(post)
-        db.session.commit()
-        flash("Post deleted", category="success")
+    
+    db.session.delete(post)
+    db.session.commit()
+    flash("Post deleted", category="success")
 
     return redirect(url_for("admin.admin_dash", view=view))
 
