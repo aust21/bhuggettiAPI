@@ -39,7 +39,7 @@
           href="{{ url_for('views.home', view='culture-fit') }}"
           class="{% if view == 'culture-fit' %}active{% endif %}"
         >
-          <i class="bx bxs-doughnut-chart"></i>
+          <i class="bx bxs-group"></i>
           <span class="text">Culture Fit Questions</span>
         </a>
       </li>
@@ -48,7 +48,7 @@
           href="{{ url_for('views.home', view='technical') }}"
           class="{% if view == 'technical' %}active{% endif %}"
         >
-          <i class="bx bxs-message-dots"></i>
+          <i class="bx bxs-book-reader"></i>
           <span class="text">Technical Questions</span>
         </a>
       </li>
@@ -56,7 +56,7 @@
     <ul class="side-menu">
       <li>
         <a href="{{ url_for('views.settings', id=user.id) }}">
-          <i class="bx bxs-log-out-circle"></i>
+          <i class="bx bxs-cog" style="color: #afcce6"></i>
           <span class="text">Settings</span>
         </a>
       </li>
@@ -99,7 +99,7 @@
 
       <ul class="box-info">
         <li>
-          <i class="bx bxs-calendar-check"></i>
+          <i class="bx"></i>
           <span class="text">
             <h3>{{all}}</h3>
             <p>Submissions</p>
@@ -113,7 +113,7 @@
           </span>
         </li>
         <li>
-          <i class="bx bxs-group"></i>
+          <i class="bx"></i>
           <span class="text">
             <h3>{{cult}}</h3>
             <p>Culture fit Questions</p>
@@ -162,7 +162,9 @@
             <div class="q-entry">
               <label for="category">Question Type</label>
               <select name="category" id="category">
-                <option value="culture-fit" selected>Culture Fit Question</option>
+                <option value="culture-fit" selected>
+                  Culture Fit Question
+                </option>
                 <option value="technical">Technical Question</option>
               </select>
             </div>
@@ -177,7 +179,6 @@
                 <option value="Mechanical Engineering">
                   Mechanical Engineering
                 </option>
-                
               </select>
             </div>
 

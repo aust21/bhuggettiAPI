@@ -244,26 +244,7 @@ body {
   border-radius: 0 36px 36px 0;
   cursor: pointer;
 }
-#content nav .notification {
-  font-size: 20px;
-  position: relative;
-}
-#content nav .notification .num {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid var(--light);
-  background: var(--red);
-  color: var(--light);
-  font-weight: 700;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 #content nav .profile img {
   width: 36px;
   height: 36px;
@@ -332,18 +313,6 @@ body {
   color: var(--blue);
   pointer-events: unset;
 }
-#content main .head-title .btn-download {
-  height: 36px;
-  padding: 0 16px;
-  border-radius: 36px;
-  background: var(--blue);
-  color: var(--light);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-gap: 10px;
-  font-weight: 500;
-}
 
 #content main .box-info {
   display: grid;
@@ -402,6 +371,7 @@ body {
   background: var(--light);
   padding: 24px;
   overflow-x: auto;
+  height: 465px;
 }
 #content main .table-data .head {
   display: flex;
@@ -470,6 +440,7 @@ body {
 #content main .table-data .todo {
   flex-grow: 1;
   flex-basis: 300px;
+  height: 465px;
 }
 #content main .table-data .todo .todo-list {
   width: 100%;
