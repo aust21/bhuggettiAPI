@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request, flash, redirect, url_for
+from flask import render_template, Blueprint, request, flash, redirect, url_for, abort
 from .models import TechnicalQuestion, CultureFitQuestion, User
 from flask_login import login_required, current_user
 from . import db
@@ -6,23 +6,24 @@ from . import db
 admin = Blueprint("admin", __name__)
 
 
-@admin.route("/delete-post/<field>/<id>")
+@admin.route("/delete-post/<field>/<int:id>")
 @login_required
-def delete_post(id, field):
-    
+def delete_post(field, id):
+    if not current_user.is_admin:
+        abort(403)  # Forbidden
+
     view = request.args.get('view', 'all')
 
     if field == "culture-fit":
-        post = CultureFitQuestion.query.filter_by(id=id).first()
+        post = CultureFitQuestion.query.get_or_404(id)
+    elif field == "technical":
+        post = TechnicalQuestion.query.get_or_404(id)
     else:
-        post = TechnicalQuestion.query.filter_by(id=id).first()
+        abort(404)  # Not Found
 
-    if not post:
-        flash("Post does not exist", category="error")
-    
     db.session.delete(post)
     db.session.commit()
-    flash("Post deleted", category="success")
+    flash("Post deleted successfully", category="success")
 
     return redirect(url_for("admin.admin_dash", view=view))
 

@@ -15,6 +15,17 @@
     <title>bhuggetiAPI</title>
   </head>
   <body>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+      messages %}
+      <div id="flash-container">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+          <span>{{ message }}</span>
+          <button class="close-btn" onclick="closeFlashMessage()">×</button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
     <!-- SIDEBAR -->
     <section id="sidebar">
       <a href="#" class="brand">
