@@ -4,6 +4,7 @@ from .models import CultureFitQuestion, TechnicalQuestion
 from werkzeug.utils import secure_filename
 from . import db
 import os
+from PIL import Image
 
 views = Blueprint("views", __name__)
 
@@ -22,10 +23,11 @@ def upload_profile_image():
         return redirect(url_for('views.settings', id=current_user.id))
     
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file_extension = os.path.splitext(filename)[1]
-        new_filename = f"user_{current_user.id}{file_extension}"
-        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
+        name = f"user_{current_user.id}"
+
+        new_filename = f"{name}.png"
+        image = Image.open(file)
+        image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
         
         current_user.profile_image = new_filename
         db.session.commit()

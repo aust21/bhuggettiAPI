@@ -11,8 +11,23 @@
     />
 
     <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='flash.css') }}"
+    />
   </head>
   <body>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %}
+    <div id="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">
+        <span>{{ message }}</span>
+        <button class="close-btn" onclick="closeFlashMessage()">×</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
     <!-- Navigation Bar -->
     <header id="nav">
       <nav class="flex">
@@ -58,5 +73,6 @@
     <div>{% block content %} {% endblock %}</div>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='flash.js') }}"></script>
   </body>
 </html>
