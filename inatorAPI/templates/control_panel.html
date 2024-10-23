@@ -33,32 +33,31 @@
         <span class="text">bhuggettiAPI</span>
       </a>
       <ul class="side-menu top">
-        <li class={{ 'active' if view == 'dash' else '' }}>
+        <li class="{% if view == 'dash' %}active{% endif %}">
           <a href="{{ url_for('admin.admin_dash', view='dash') }}">
             <i class="bx bxs-dashboard"></i>
             <span class="text">Dashboard</span>
           </a>
         </li>
 
-        <li class={{ 'active' if view == 'users' else '' }}>
+        <li class="{% if view == 'users' %}active{% endif %}">
           <a href="{{ url_for('admin.admin_dash', view='users') }}">
             <i class="bx bxs-user"></i>
             <span class="text">Users</span>
           </a>
         </li>
-        <li class={{ 'active' if view == 'analytics' else '' }}>
+        <li class="{% if view == 'analytics' %}active{% endif %}">
           <a href="{{ url_for('admin.admin_dash', view='analytics') }}">
             <i class="bx bxs-doughnut-chart"></i>
             <span class="text">Analytics</span>
           </a>
         </li>
-        <li class={{ 'active' if view == 'questions' else '' }}>
+        <li class="{% if view == 'questions' %}active{% endif %}">
           <a href="{{ url_for('admin.admin_dash', view='questions') }}">
             <i class="bx bxs-message-dots"></i>
             <span class="text">Questions</span>
           </a>
         </li>
-        
       </ul>
       <ul class="side-menu">
         <li>
@@ -95,7 +94,10 @@
         <label for="switch-mode" class="switch-mode"></label>
         <p>Hey {{user.name}}</p>
         <a href="#" class="profile">
-          <img src="../static/img/me.jpeg" />
+          <img
+            src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+            alt="Profile Image"
+          />
         </a>
       </nav>
       <!-- NAVBAR -->
@@ -201,7 +203,6 @@
     <!-- CONTENT -->
 
     <script>
-      
       // TOGGLE SIDEBAR
       const menuBar = document.querySelector("#content nav .bx.bx-menu");
       const sidebar = document.getElementById("sidebar");

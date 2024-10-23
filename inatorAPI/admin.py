@@ -34,7 +34,6 @@ def delete_post(field, id):
 def admin_dash():
     view = request.args.get('view', 'dash')
     
-    print("__________________"+view)
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':  # For AJAX requests
         # Return JSON data
         data = {
