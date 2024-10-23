@@ -51,6 +51,8 @@ def admin_dash():
     users = len(User.query.all()) - 1
     posts = culture_questions + tech_questions
     posts.sort(key=lambda x: x.date_created, reverse=True)
+    user_accounts = User.query.all()
+    # print(f"--------------------------{len(user_accounts)}--------------------------")
     
     return render_template("control_panel.html", 
                          posts=posts, 
@@ -59,7 +61,8 @@ def admin_dash():
                          all=len(posts), 
                          user=current_user, 
                          users=users, 
-                         view=view)
+                         view=view,
+                         accounts=user_accounts)
 
 @admin.route("/admin/dashbord/view-posts")
 @login_required

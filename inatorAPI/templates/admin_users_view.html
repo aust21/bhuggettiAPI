@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="../static/users.css" />
+<div class="container">
+  <div class="users-container">
+    {% for user in accounts %} {% if user.is_admin==False %}
+    <div class="card">
+      <div class="img-avatar">
+        <img
+          src="{{ url_for('static', filename='profile_pics/' + user.profile_image) }}"
+          alt="Profile Image"
+        />
+      </div>
+      <div class="card-text">
+        <div class="portada"></div>
+        <div class="title-total">
+          <div class="title">
+            {{user.date_created}}<br />{{user.speciality}}<br />{{user.company}}
+          </div>
+          <p>{{user.name}}</p>
+
+          <div class="desc">
+            {{user.name}} has {{user.total_submissions}} submissions
+          </div>
+          <div class="actions">
+            <button><i class="far fa-heart"></i></button>
+            <button><i class="far fa-envelope"></i></button>
+            <button><i class="fas fa-user-friends"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+</div>

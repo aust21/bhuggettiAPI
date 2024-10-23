@@ -1,0 +1,75 @@
+<ul class="box-info">
+  <li>
+    <i class="bx bxs-calendar-check"></i>
+    <span class="text">
+      <h3>{{users}}</h3>
+      <p>Users</p>
+    </span>
+  </li>
+  <li>
+    <i class="bx bxs-hard-hat"></i>
+    <span class="text">
+      <h3>{{tech}}</h3>
+      <p>Technical Questions</p>
+    </span>
+  </li>
+  <li>
+    <i class="bx bxs-group"></i>
+    <span class="text">
+      <h3>{{cult}}</h3>
+      <p>Culture fit Questions</p>
+    </span>
+  </li>
+</ul>
+
+<div class="table-data">
+  <div class="order">
+    <div class="head">
+      <h3>Recent Submissions</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Question</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>
+            <p>{{post.user.name}}</p>
+          </td>
+          <td>
+            <span class="question">{{post.question}}</span>
+          </td>
+          <td>
+            <span class="status completed">{{post.date_created}}</span>
+          </td>
+          <td>
+            <a
+              href="{{ url_for('admin.delete_post', id=post.id, field=post.field, view=view) }}"
+              ><i class="bx bxs-trash-alt"></i
+            ></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="todo">
+    <div class="head">
+      <h3>Todos</h3>
+      <i class="bx bx-plus"></i>
+      <i class="bx bx-filter"></i>
+    </div>
+    <ul class="todo-list">
+      <li class="completed">
+        <p>Todo List</p>
+        <i class="bx bx-dots-vertical-rounded"></i>
+      </li>
+    </ul>
+  </div>
+</div>
