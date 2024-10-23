@@ -20,7 +20,7 @@
     </a>
     <ul class="side-menu top">
       <li class="{% if view == 'dash' %}active{% endif %}">
-        <a href="#">
+        <a href="{{ url_for('views.home', view='dash') }}">
           <i class="bx bxs-dashboard"></i>
           <span class="text">Dashboard</span>
         </a>
