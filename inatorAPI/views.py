@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from . import db
 import os
 from PIL import Image
+from sqlalchemy import exc
 
 views = Blueprint("views", __name__)
 
@@ -66,21 +67,47 @@ def update_settings():
 @views.route('/delete_account', methods=['POST'])
 @login_required
 def delete_account():
-    user_id = current_user.id
+    try:
+        user_id = current_user.id
+        
+        # Delete profile image if it exists
+        if current_user.profile_image and current_user.profile_image != 'default.jpg':
+            image_path = os.path.join(current_app.config["UPLOAD_FOLDER"], current_user.profile_image)
+            if os.path.exists(image_path):
+                try:
+                    os.remove(image_path)
+                except OSError as e:
+                    current_app.logger.error(f"Error deleting profile image: {e}")
+        
+        # Begin database transaction
+        db.session.begin_nested()
+        
+        # Delete all associated data using cascade if possible, otherwise manual deletion
+        try:
 
-    # Optionally delete any related data (posts, files, etc.)
-    # Example: Delete user's posts if you have a Post model
-    # Post.query.filter_by(user_id=user_id).delete()
-
-    # Delete the user's account
-    db.session.delete(current_user)
-    db.session.commit()
-
-    # Log the user out
-    logout_user()
-
-    flash('Your account has been deleted.', 'info')
-    return redirect(url_for('auth.login'))
+            TechnicalQuestion.query.filter_by(user_id=user_id).delete()
+            CultureFitQuestion.query.filter_by(user_id=user_id).delete()
+            
+            
+            db.session.delete(current_user)
+            db.session.commit()
+            
+        except exec.SQLAlchemyError as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database error during account deletion: {e}")
+            flash('An error occurred while deleting your account. Please try again.', 'error')
+            return redirect(url_for('views.settings'))
+        
+        # Log the user out after successful deletion
+        logout_user()
+        
+        flash('Your account has been successfully deleted.', 'success')
+        return redirect(url_for('auth.login'))
+        
+    except Exception as e:
+        current_app.logger.error(f"Unexpected error during account deletion: {e}")
+        flash('An unexpected error occurred. Please contact support.', 'error')
+        return redirect(url_for('views.settings'))
 
 
 @views.route("/")
