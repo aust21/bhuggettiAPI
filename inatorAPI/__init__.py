@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
@@ -43,6 +43,7 @@ def create_app():
 
     @app.route("/")
     def index():
+        flash("This site is currently under development and testing", category="danger")
         return render_template("index.html")
     
     @app.route("/login")
