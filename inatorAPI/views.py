@@ -113,7 +113,7 @@ def delete_account():
 @views.route("/")
 @login_required
 def home():
-    view = request.args.get('view', 'all')
+    view = request.args.get('view', 'dash')
 
     cult = CultureFitQuestion.query.filter_by(user_id=current_user.id).all()
     tech = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()

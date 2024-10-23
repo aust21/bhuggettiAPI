@@ -1,7 +1,8 @@
-from flask import render_template, Blueprint, request, flash, redirect, url_for, abort
+from flask import render_template, Blueprint, request, flash, redirect, url_for, abort, jsonify
 from .models import TechnicalQuestion, CultureFitQuestion, User
 from flask_login import login_required, current_user
 from . import db
+
 
 admin = Blueprint("admin", __name__)
 
@@ -31,13 +32,35 @@ def delete_post(field, id):
 @admin.route("/dashboard")
 @login_required
 def admin_dash():
+    view = request.args.get('view', 'dash')
+    
+    print("__________________"+view)
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':  # For AJAX requests
+        # Return JSON data
+        data = {
+            'view': view,
+            'users': len(User.query.all()) - 1,
+            'tech_count': len(TechnicalQuestion.query.all()),
+            'culture_count': len(CultureFitQuestion.query.all()),
+            # Add more data as needed
+        }
+        return jsonify(data)
+    
+    # For regular requests (initial page load)
     culture_questions = CultureFitQuestion.query.all()
-    tech_qustions = TechnicalQuestion.query.all()
+    tech_questions = TechnicalQuestion.query.all()
     users = len(User.query.all()) - 1
-    posts = culture_questions + tech_qustions
+    posts = culture_questions + tech_questions
     posts.sort(key=lambda x: x.date_created, reverse=True)
-    return render_template("control_panel.html", posts=posts, tech=len(tech_qustions), 
-                           cult=len(culture_questions), all=len(posts), user = current_user, users=users)
+    
+    return render_template("control_panel.html", 
+                         posts=posts, 
+                         tech=len(tech_questions),
+                         cult=len(culture_questions), 
+                         all=len(posts), 
+                         user=current_user, 
+                         users=users, 
+                         view=view)
 
 @admin.route("/admin/dashbord/view-posts")
 @login_required

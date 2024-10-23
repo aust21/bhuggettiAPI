@@ -12,58 +12,53 @@
     <!-- My CSS -->
     <link rel="stylesheet" href="../static/cpanel.css" />
 
-    <title>bhuggetiAPI</title>
+    <title>bhuggettiAPI</title>
   </head>
   <body>
     {% with messages = get_flashed_messages(with_categories=True) %} {% if
-      messages %}
-      <div id="flash-container">
-        {% for category, message in messages %}
-        <div class="flash-message {{ category }}">
-          <span>{{ message }}</span>
-          <button class="close-btn" onclick="closeFlashMessage()">×</button>
-        </div>
-        {% endfor %}
+    messages %}
+    <div id="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">
+        <span>{{ message }}</span>
+        <button class="close-btn" onclick="closeFlashMessage()">×</button>
       </div>
-      {% endif %} {% endwith %}
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
     <!-- SIDEBAR -->
     <section id="sidebar">
       <a href="#" class="brand">
         <i class="bx bxs-smile"></i>
-        <span class="text">bhuggetiAPI</span>
+        <span class="text">bhuggettiAPI</span>
       </a>
       <ul class="side-menu top">
-        <li class="active">
-          <a href="#">
+        <li class={{ 'active' if view == 'dash' else '' }}>
+          <a href="{{ url_for('admin.admin_dash', view='dash') }}">
             <i class="bx bxs-dashboard"></i>
             <span class="text">Dashboard</span>
           </a>
         </li>
 
-        <li>
-          <a href="#">
+        <li class={{ 'active' if view == 'users' else '' }}>
+          <a href="{{ url_for('admin.admin_dash', view='users') }}">
             <i class="bx bxs-user"></i>
             <span class="text">Users</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+        <li class={{ 'active' if view == 'analytics' else '' }}>
+          <a href="{{ url_for('admin.admin_dash', view='analytics') }}">
             <i class="bx bxs-doughnut-chart"></i>
             <span class="text">Analytics</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+        <li class={{ 'active' if view == 'questions' else '' }}>
+          <a href="{{ url_for('admin.admin_dash', view='questions') }}">
             <i class="bx bxs-message-dots"></i>
             <span class="text">Questions</span>
           </a>
         </li>
-        <li>
-          <a href="#">
-            <i class="bx bxs-group"></i>
-            <span class="text">Team</span>
-          </a>
-        </li>
+        
       </ul>
       <ul class="side-menu">
         <li>
@@ -109,7 +104,9 @@
       <main>
         <div class="head-title">
           <div class="left">
-            <h1>Dashboard</h1>
+            <h1>
+              {% if view == "users" %} Users {% else %} Dashboard {% endif %}
+            </h1>
 
             <ul class="breadcrumb">
               <li>
@@ -204,21 +201,7 @@
     <!-- CONTENT -->
 
     <script>
-      const allSideMenu = document.querySelectorAll(
-        "#sidebar .side-menu.top li a"
-      );
-
-      allSideMenu.forEach((item) => {
-        const li = item.parentElement;
-
-        item.addEventListener("click", function () {
-          allSideMenu.forEach((i) => {
-            i.parentElement.classList.remove("active");
-          });
-          li.classList.add("active");
-        });
-      });
-
+      
       // TOGGLE SIDEBAR
       const menuBar = document.querySelector("#content nav .bx.bx-menu");
       const sidebar = document.getElementById("sidebar");

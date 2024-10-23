@@ -19,35 +19,26 @@
       <span class="text">bhuggettiAPI</span>
     </a>
     <ul class="side-menu top">
-      <li class="active">
+      <li class="{% if view == 'dash' %}active{% endif %}">
         <a href="#">
           <i class="bx bxs-dashboard"></i>
           <span class="text">Dashboard</span>
         </a>
       </li>
-      <li>
-        <a
-          href="{{ url_for('views.home', view='all') }}"
-          class="{% if view == 'all' %}active{% endif %}"
-        >
-          <i class="bx bxs-user"></i>
-          <span class="text">Submissions</span>
+      <li class="{% if view == 'sub' %}active{% endif %}">
+        <a href="{{ url_for('views.home', view='insights') }}">
+          <i class="bx bxs-analyse"></i>
+          <span class="text">Insights</span>
         </a>
       </li>
-      <li>
-        <a
-          href="{{ url_for('views.home', view='culture-fit') }}"
-          class="{% if view == 'culture-fit' %}active{% endif %}"
-        >
+      <li class="{% if view == 'culture-fit' %}active{% endif %}">
+        <a href="{{ url_for('views.home', view='culture-fit') }}">
           <i class="bx bxs-group"></i>
           <span class="text">Culture Fit Questions</span>
         </a>
       </li>
-      <li>
-        <a
-          href="{{ url_for('views.home', view='technical') }}"
-          class="{% if view == 'technical' %}active{% endif %}"
-        >
+      <li class="{% if view == 'technical' %}active{% endif %}">
+        <a href="{{ url_for('views.home', view='technical') }}">
           <i class="bx bxs-book-reader"></i>
           <span class="text">Technical Questions</span>
         </a>
