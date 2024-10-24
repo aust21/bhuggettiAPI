@@ -13,26 +13,45 @@ sys.path.append(os.getcwd())
 auth = Blueprint("auth", __name__)
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+# print(f"-------ID----------{GOOGLE_CLIENT_ID}")
+# print(f"-------SECRET----------{GOOGLE_CLIENT_SECRET}")
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 
 
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
+
+@auth.route("/login/google")
+def login_with_google():
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+    
+    # Use url_for with _external=True to get the full URL
+    redirect_uri = url_for('auth.google_callback', _external=True)
+    print(f"Redirect URI: {redirect_uri}")  # For debugging
+    print(f"Generated redirect URI: {url_for('auth.google_callback', _external=True)}")
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri=redirect_uri,
+        scope=["openid", "email", "profile"],
+    )
+    return redirect(request_uri)
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 @auth.route("/login/google/callback")
 def google_callback():
-    # Get authorization code from Google
     code = request.args.get("code")
-
     google_provider_cfg = get_google_provider_cfg()
     token_endpoint = google_provider_cfg["token_endpoint"]
-
+    
+    # Use the same url_for as above
+    redirect_uri = url_for('auth.google_callback', _external=True)
+    
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url,
-        redirect_url=request.base_url,
+        redirect_url=redirect_uri,
         code=code
     )
     token_response = requests.post(
@@ -97,22 +116,12 @@ def complete_profile():
     return render_template("complete_profile.html", user=current_user)
 
 
-@auth.route("/login/google")
-def login_with_google():
-    google_provider_cfg = get_google_provider_cfg()
-    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
-    request_uri = client.prepare_request_uri(
-        authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
-        scope=["openid", "email", "profile"],
-    )
-
-    return redirect(request_uri)
 
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    flash("Sign in with google is currently only for test users. Please sign in manually", "danger")
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
