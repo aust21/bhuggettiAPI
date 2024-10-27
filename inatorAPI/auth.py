@@ -158,8 +158,9 @@ def sign_up():
         if email_exists:
             flash('Email exists', category='error')
         else:
-            new_user = User(email=email, name=name,             speciality=speciality, 
-            password=generate_password_hash(password, method="pbkdf2:sha256"), company=company)
+            new_user = User(email=email, name=name, speciality=speciality, 
+            password=generate_password_hash(password, method="pbkdf2:sha256"), company=company,
+            profile_image="default.png")
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

@@ -8,14 +8,14 @@
   <li>
     <i class="bx"></i>
     <span class="text">
-      <h3>{{all}}</h3>
+      <h3>{{all|length}}</h3>
       <p>All Submissions</p>
     </span>
   </li>
   <li>
     <i class="bx"></i>
     <span class="text">
-      <h3>{{cult}}</h3>
+      <h3>{{cult|length}}</h3>
       <p>Culture fit Questions</p>
     </span>
   </li>
@@ -30,6 +30,7 @@
       <thead>
         <tr>
           <th>Question</th>
+          <th>Created</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -38,6 +39,9 @@
         <tr>
           <td>
             <span class="question">{{post.question}}</span>
+          </td>
+          <td>
+            <span>{{post.date_created}}</span>
           </td>
           <td>
             <a

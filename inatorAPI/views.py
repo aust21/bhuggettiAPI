@@ -119,6 +119,10 @@ def home():
     tech = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()
     all = cult + tech
 
+    cult_count = CultureFitQuestion.query.filter_by(user_id=current_user.id).count()
+    tech_count = TechnicalQuestion.query.filter_by(user_id=current_user.id).count()
+    total_count = cult_count + tech_count
+
     if view == 'culture-fit':
         posts = cult
     elif view == 'technical':
@@ -126,7 +130,17 @@ def home():
     else:
         posts = all
 
-    return render_template("dashboard.html", user=current_user, posts=posts, view=view, cult=len(cult), all=len(all), tech=len(tech))
+    return render_template("dashboard.html", 
+                        user=current_user, 
+                        posts=posts, 
+                        view=view, 
+                        cult=cult, 
+                        all=all, 
+                        tech=tech,
+                        cult_count=cult_count,
+                        tech_count=tech_count,
+                        total_count=total_count
+                            )
 
 @views.route("/delete-post/<field>/<id>")
 @login_required

@@ -1,3 +1,7 @@
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='analytics.css')}}"
+/>
 <div class="head-title">
   <div class="left">
     <h1>Analytics</h1>
@@ -9,23 +13,44 @@
     <li>
       <i class="bx"></i>
       <span class="text">
-        <h3>{{all}}</h3>
+        <h3>{{ total_count }}</h3>
         <p>Submissions</p>
       </span>
     </li>
     <li>
       <i class="bx bxs-hard-hat"></i>
       <span class="text">
-        <h3>{{tech}}</h3>
+        <h3>{{ tech_count }}</h3>
         <p>Technical Questions</p>
       </span>
     </li>
     <li>
       <i class="bx"></i>
       <span class="text">
-        <h3>{{cult}}</h3>
+        <h3>{{ cult_count }}</h3>
         <p>Culture fit Questions</p>
       </span>
     </li>
   </ul>
+
+  <canvas id="myChart"></canvas>
+
+  <!-- <ul class="analytics">
+    <li>
+      <span>
+        <h3>Culture fit submissions count</h3>
+        <p>{{ (cult_count / total_count * 100)|int }}%</p>
+      </span>
+    </li>
+  </ul> -->
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<!-- Pass Python variables to JavaScript -->
+<script>
+  const cultCount = {{ cult_count }};
+  const techCount = {{ tech_count }};
+</script>
+
+<script src="{{ url_for('static', filename='graphs.js') }}"></script>
