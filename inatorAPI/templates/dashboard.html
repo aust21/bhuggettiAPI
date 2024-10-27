@@ -70,7 +70,7 @@
       <span></span>
       <input type="checkbox" id="switch-mode" hidden />
       <label for="switch-mode" class="switch-mode"></label>
-      <p>Hey {{user.name}}</p>
+      <p>{{user.name}}</p>
       <a href="#" class="profile">
         <img
           src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
@@ -80,8 +80,14 @@
     </nav>
 
     <main>
-      {% if view=="insights" %} {% include 'analytics_view.html' %} {% else %}
-      {% include 'dash_view.html' %} {% endif %}
+      {% if view=="insights" %}
+        {% include 'analytics_view.html' %} 
+      {% elif view=="culture-fit"%}
+        {% include 'user_culture_fit_view.html'%}
+      {% elif view=="technical"%}
+        {% include 'user_tech_view.html' %}
+      {% else %}
+        {% include 'dash_view.html' %} {% endif %}
     </main>
     <!-- MAIN -->
   </section>

@@ -1,0 +1,53 @@
+<div class="head-title">
+  <div class="left">
+    <h1>Technical Submissions</h1>
+  </div>
+</div>
+
+<ul class="box-info">
+  <li>
+    <i class="bx"></i>
+    <span class="text">
+      <h3>{{all}}</h3>
+      <p>All Submissions</p>
+    </span>
+  </li>
+  <li>
+    <i class="bx"></i>
+    <span class="text">
+      <h3>{{tech}}</h3>
+      <p>Technical Questions</p>
+    </span>
+  </li>
+</ul>
+
+<div class="table-data">
+  <div class="order">
+    <div class="head">
+      <h3>Recent Submissions</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>
+            <span class="question">{{post.question}}</span>
+          </td>
+          <td>
+            <a
+              href="{{ url_for('views.delete_post', id=post.id, field=post.field, view=view) }}"
+              ><i class="bx bxs-trash-alt"></i
+            ></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
