@@ -16,11 +16,16 @@ endblock %} {% block content %}
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required />
       </div>
+      
+      <a href="{{ url_for('auth.reset')}}" class="dont right"
+        >Forgot password?</a
+      >
 
-      <div class="entry"><link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='signup-login.css') }}"
-      />
+      <div class="entry">
+        <link
+          rel="stylesheet"
+          href="{{ url_for('static', filename='signup-login.css') }}"
+        />
         <input type="submit" value="Sign in" />
       </div>
 

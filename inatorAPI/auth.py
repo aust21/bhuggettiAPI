@@ -143,6 +143,10 @@ def login():
 
     return render_template("login.html")
 
+@auth.route("/reset-password")
+def reset():
+    return render_template("reset.html")
+
 
 @auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():

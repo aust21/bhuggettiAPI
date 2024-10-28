@@ -62,6 +62,11 @@ select {
   font-size: small;
 }
 
+.right {
+  display: block;
+  text-align: right;  
+}
+
 .dont > a {
   color: rgb(86, 221, 55);
 }
