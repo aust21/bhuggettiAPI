@@ -116,12 +116,9 @@ def complete_profile():
     return render_template("complete_profile.html", user=current_user)
 
 
-
-
-
 @auth.route("/login", methods=["GET", "POST"])
 def login():
-    flash("Sign in with google is currently only for test users. Please sign in manually", "danger")
+
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")

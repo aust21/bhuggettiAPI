@@ -2,6 +2,10 @@ section {
   background-color: #fff;
 }
 
+button {
+  cursor: pointer;
+}
+
 .entry > input,
 select {
   display: block;
@@ -34,6 +38,12 @@ select {
   margin-top: 1rem;
   background-color: #789c2b;
   border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.entry > input[type="submit"]:hover {
+  background-color: #abd159;
 }
 
 .g-logo {
@@ -64,7 +74,7 @@ select {
 
 .right {
   display: block;
-  text-align: right;  
+  text-align: right;
 }
 
 .dont > a {

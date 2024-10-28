@@ -3,6 +3,10 @@ header {
   transition: 2s ease-in-out;
 }
 
+button {
+  cursor: pointer;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
