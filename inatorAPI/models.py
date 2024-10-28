@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     technical_questions = db.relationship('TechnicalQuestion', backref='user', passive_deletes=True)
     profile_image = db.Column(db.String(100), default='default.png') 
     cormfirm_code = db.Column(db.String(7), default="0000000")
-    account_confirmed = db.Column(db.Boolean, default="0000000")
+    account_confirmed = db.Column(db.Boolean, default=False)
 
     @property
     def total_submissions(self):
