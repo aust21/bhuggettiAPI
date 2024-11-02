@@ -52,11 +52,14 @@ def update_settings():
     email = request.form.get('email')
     company = request.form.get('company')
     
+    old_email = current_user.email
     # Update the current user's details
     current_user.name = name
     current_user.email = email
     current_user.company = company
-    
+
+    if old_email != email:
+        current_user.account_confirmed = False
     
     # Commit the updates to the database
     db.session.commit()

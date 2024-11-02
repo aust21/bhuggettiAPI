@@ -1,4 +1,4 @@
-div.flex {
+.holder.flex {
   justify-content: space-between;
   width: 60%;
   margin: 0 auto;
@@ -13,7 +13,7 @@ div.flex {
   top: 1rem;
   left: 1rem;
   background-color: #889fa5;
-  padding: .4rem;
+  padding: 0.4rem;
   border-radius: 5px;
 }
 
@@ -29,19 +29,44 @@ form {
 
 .form-group {
   margin: 1rem 0;
+  width: 100%;
+}
+
+.form-group.flex > input {
+  border: none;
+  padding: 0;
+  width: 100%;
+  outline: none;
+  padding: 0.5rem;
+}
+
+.form-group.flex {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 0;
+  justify-content: space-between;
 }
 
 label {
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.email-v {
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.email-v > input {
+  width: 65%;
 }
 
 input[type="text"],
 input[type="email"] {
   width: 100%;
-  border: none;
-  border-bottom: 1px solid #000000;
+  border: 1px solid #000;
   background-color: #fff5ff;
-  margin-top: 0.5rem;
+  border-radius: 5px;
   padding: 0.4rem;
 }
 
@@ -54,6 +79,7 @@ input[type="submit"] {
   outline: none;
   border: 0;
   border-radius: 5px;
+  width: 100%;
 }
 
 input[type="submit"]:hover {
@@ -72,10 +98,6 @@ input[type="submit"]:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.update-profile-picture input[type="file"] {
-  padding: 0;
 }
 
 .message {
@@ -101,34 +123,12 @@ input[type="submit"]:hover {
   display: block;
 }
 
-#file-upload {
-  display: none;
-}
-
-.custom-file-upload {
-  border: 1px solid #ccc;
-  display: inline-block;
-  padding: 6px 12px;
-  cursor: pointer;
-  background-color: #f1f1f1;
-  color: #333;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.custom-file-upload:hover {
-  background-color: #ddd;
-}
-
 .forms {
   width: 50%;
 }
 
-.st.flex {
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0;
+.st {
+  margin-right: 0.5rem;
 }
 
 #file-name {
@@ -138,10 +138,15 @@ input[type="submit"]:hover {
 
 button[type="submit"] {
   outline: none;
-  background-color: #43655a;
+  background-color: #87a59c;
   border: 0;
   border-radius: 5px;
   padding: 0.3rem 1rem;
+}
+
+.e {
+  width: 100%;
+  padding: 0.4rem 1rem;
 }
 
 #flash-container {
@@ -193,19 +198,21 @@ button[type="submit"] {
 }
 
 @media (max-width: 48em) {
-  div.flex,
-  .st.flex {
+  div.flex {
     flex-direction: column;
   }
 
+  .holder.flex,
+  .e {
+    width: 90%;
+  }
   .side,
   .forms,
   div.flex {
     width: 100%;
   }
 
-  #file-name {
-    text-align: center;
-    width: 50%;
+  .form-group.flex {
+    flex-direction: row;
   }
 }

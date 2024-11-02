@@ -18,17 +18,18 @@
     />
   </head>
   <body>
-    {% with messages = get_flashed_messages(with_categories=True) %} {% if
-    messages %}
-    <div id="flash-container">
-      {% for category, message in messages %}
-      <div class="flash-message {{ category }}">
-        <span>{{ message }}</span>
-        <button class="close-btn" onclick="closeFlashMessage()">×</button>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+      <div id="flash-container">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+          <span>{{ message }}</span>
+          <button class="close-btn" onclick="closeFlashMessage()">×</button>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-    {% endif %} {% endwith %}
+      {% endif %} 
+    {% endwith %}
     <div>{% block content %} {% endblock %}</div>
 
     <script src="../static/flash.js"></script>

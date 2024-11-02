@@ -4,10 +4,11 @@ from flask_login import LoginManager
 import os
 from sqlalchemy import func
 from oauthlib.oauth2 import WebApplicationClient
+from flask_mail import Mail, Message
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
-
+mail = Mail() 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
@@ -19,6 +20,13 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'profile_pics')
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = 'bhuggettiapi@gmail.com'  # Your email
+    app.config['MAIL_PASSWORD'] = 'qfzk bhzz wjlc vryz'     # Your app password
+    mail.init_app(app)
     db.init_app(app)
     from .auth import auth
     from .models import User, TechnicalQuestion, CultureFitQuestion
