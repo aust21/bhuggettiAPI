@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send stuff</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='notifications.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='flash.css') }}"
+    />
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=True) %} {% if
+    messages %}
+    <div id="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">
+        <span>{{ message }}</span>
+        <button class="close-btn" onclick="closeFlashMessage()">X</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+    <div class="form">
+      <form action="{{ url_for('admin.send_update') }}" method="post">
+        <div id="input-group">
+          <label for="subject">Subject</label>
+          <select name="subject" id="subject">
+            <option value="Account Notification">Account Notification</option>
+            <option value="Website Update">Website Update</option>
+          </select>
+        </div>
+        <div class="email-selector-container">
+          <div class="selected-emails-container">
+            <div id="selectedEmails" class="selected-emails"></div>
+            <input
+              type="text"
+              id="emailSearch"
+              placeholder="Search emails..."
+              class="email-search"
+            />
+          </div>
+          <div id="emailDropdown" class="email-dropdown">
+            {% for user in accounts %}
+            <div class="email-option">
+              <label>
+                <input
+                  type="checkbox"
+                  value="{{ user.email }}"
+                  class="email-checkbox"
+                />
+                <span>{{ user.email }}</span>
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="input-group" id="group">
+            <label for="message">Message</label>
+            <textarea name="message" id="message"></textarea>
+          </div>
+          <input
+            type="hidden"
+            id="selectedEmailsInput"
+            name="selected_emails"
+          />
+          <input type="submit" value="Send" id="btn" />
+        </div>
+      </form>
+    </div>
+    <script src="{{ url_for('static', filename='not.js')}}"></script>
+    <script src="{{ url_for('static', filename='flash.js')}}"></script>
+  </body>
+</html>

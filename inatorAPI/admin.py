@@ -1,7 +1,8 @@
-from flask import render_template, Blueprint, request, flash, redirect, url_for, abort, jsonify
+from flask import current_app, json, render_template, Blueprint, request, flash, redirect, url_for, abort, jsonify
+from flask_mail import Message
 from .models import TechnicalQuestion, CultureFitQuestion, User
 from flask_login import login_required, current_user
-from . import db
+from . import db, mail
 
 
 admin = Blueprint("admin", __name__)
@@ -52,7 +53,6 @@ def admin_dash():
     posts = culture_questions + tech_questions
     posts.sort(key=lambda x: x.date_created, reverse=True)
     user_accounts = User.query.all()
-    # print(f"--------------------------{len(user_accounts)}--------------------------")
     
     return render_template("control_panel.html", 
                          posts=posts, 
@@ -62,7 +62,29 @@ def admin_dash():
                          user=current_user, 
                          users=users, 
                          view=view,
-                         accounts=user_accounts)
+                         accounts=user_accounts,
+                         )
+
+@admin.route("/send_update", methods=['POST'])
+@login_required
+def send_update():
+    view = request.args.get('view', 'notifications')
+    selected_emails = json.loads(request.form.get('selected_emails', '[]'))
+    message = request.form.get('message', '')
+    subject = request.form.get("subject")
+    
+    html = render_template('email/webupdates.html', message=message, user=current_user)
+
+    for email in selected_emails:
+        # Example using Flask-Mail
+        msg = Message(subject,
+                     sender=current_app.config['MAIL_USERNAME'],
+                     recipients=[email])
+        msg.html = html
+        mail.send(msg)
+    
+    flash('Updates sent successfully!', 'success')
+    return redirect(url_for('admin.admin_dash', view=view))
 
 @admin.route("/admin/dashbord/view-posts")
 @login_required

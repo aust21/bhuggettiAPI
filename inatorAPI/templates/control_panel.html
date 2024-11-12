@@ -58,6 +58,12 @@
             <span class="text">Questions</span>
           </a>
         </li>
+        <li class="{% if view == 'notifications' %}active{% endif %}">
+          <a href="{{ url_for('admin.admin_dash', view='notifications') }}">
+            <i class="bx bxs-message-dots"></i>
+            <span class="text">Notifications</span>
+          </a>
+        </li>
       </ul>
       <ul class="side-menu">
         <li>
@@ -100,12 +106,15 @@
 
       <main>
         <div class="head-title">
-          <div class="left">
+          <div class="{% if view != 'notifications' %} left {% else %} right {% endif %}">
             <h1>
-              {% if view == "users" %} Users {% else %} Dashboard {% endif %}
+              {% if view == "users" %} Users {% elif view=="notifications" %}
+              Send Email Updates {% else %} Dashboard {% endif %}
             </h1>
 
             <ul class="breadcrumb">
+              {% if view != "notifications" %}
+
               <li>
                 <a href="#">Dashboard</a>
               </li>
@@ -113,12 +122,14 @@
               <li>
                 <a class="active" href="#">Home</a>
               </li>
+              {% endif %}
             </ul>
           </div>
         </div>
 
         {% if view == 'dash' %} {% include 'admin_dash_view.html' %} {% elif
-        view == 'users' %} {% include 'admin_users_view.html' %} {% endif %}
+        view == 'users' %} {% include 'admin_users_view.html' %} {% elif view ==
+        'notifications' %} {% include 'admin_notifications.html' %} {% endif %}
       </main>
     </section>
 
