@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user, logout_user
-from .models import CultureFitQuestion, TechnicalQuestion
+from .models import CultureFitQuestion, TechnicalQuestion, QuestionFields
 from werkzeug.utils import secure_filename
 from . import db
 import os
@@ -39,6 +39,7 @@ def upload_profile_image():
     flash('Invalid file type', 'error')
     return redirect(url_for('views.settings', id=current_user.id))
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
@@ -66,6 +67,7 @@ def update_settings():
 
     flash('Account details updated successfully', 'success')
     return redirect(url_for('views.settings', id=current_user.id))
+
 
 @views.route('/delete_account', methods=['POST'])
 @login_required
@@ -120,6 +122,7 @@ def home():
 
     cult = CultureFitQuestion.query.filter_by(user_id=current_user.id).all()
     tech = TechnicalQuestion.query.filter_by(user_id=current_user.id).all()
+    fields = QuestionFields.query.all()
     all = cult + tech
 
     cult_count = CultureFitQuestion.query.filter_by(user_id=current_user.id).count()
@@ -142,7 +145,8 @@ def home():
                         tech=tech,
                         cult_count=cult_count,
                         tech_count=tech_count,
-                        total_count=total_count
+                        total_count=total_count,
+                        fields = fields
                             )
 
 @views.route("/delete-post/<field>/<id>")
@@ -180,6 +184,13 @@ def submit_question():
         form_question = request.form.get("question")
         industry = request.form.get("category")
         field = request.form.get("field")
+
+        if field == "Other":
+            new_field = request.form.get("addField")
+            field = QuestionFields(question_field= new_field)
+            db.session.add(field)
+            db.session.commit()
+            field = new_field
         if industry == "technical":
             post = TechnicalQuestion(question=form_question, user_id=current_user.id, field=industry, domain=field)
         else:

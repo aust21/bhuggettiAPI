@@ -40,3 +40,7 @@ class TechnicalQuestion(db.Model):
     domain = db.Column(db.String(500), nullable=False)
     date_created = db.Column(db.Date, default=date.today)
     field = db.Column(db.String(500), nullable=False)
+
+class QuestionFields(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question_field = db.Column(db.String(1000), nullable=False)

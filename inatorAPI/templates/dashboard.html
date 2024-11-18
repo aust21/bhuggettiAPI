@@ -80,14 +80,10 @@
     </nav>
 
     <main>
-      {% if view=="insights" %}
-        {% include 'analytics_view.html' %} 
-      {% elif view=="culture-fit"%}
-        {% include 'user_culture_fit_view.html'%}
-      {% elif view=="technical"%}
-        {% include 'user_tech_view.html' %}
-      {% else %}
-        {% include 'dash_view.html' %} {% endif %}
+      {% if view=="insights" %} {% include 'analytics_view.html' %} {% elif
+      view=="culture-fit"%} {% include 'user_culture_fit_view.html'%} {% elif
+      view=="technical"%} {% include 'user_tech_view.html' %} {% else %} {%
+      include 'dash_view.html' %} {% endif %}
     </main>
     <!-- MAIN -->
   </section>
@@ -128,22 +124,6 @@
     });
   </script>
 
-  <script>
-    const select = document.getElementById("field");
-    let options = Array.from(select.options);
-
-    // Remove the "Select" option from sorting
-    const selectOption = options.shift();
-
-    // Sort options alphabetically by their text
-    options.sort((a, b) => a.text.localeCompare(b.text));
-
-    // Add the "Select" option back at the beginning
-    options.unshift(selectOption);
-
-    // Rebuild the select options
-    select.innerHTML = "";
-    options.forEach((option) => select.add(option));
-  </script>
+  <script src="{{ url_for('static', filename='dash.js') }}"></script>
   {% endblock %}
 </main>

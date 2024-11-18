@@ -19,7 +19,8 @@ label {
 }
 
 select,
-textarea {
+textarea,
+input {
   width: 100%;
   outline: none;
   border-radius: 5px;

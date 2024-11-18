@@ -68,13 +68,18 @@
 
       <div class="q-entry">
         <label for="field">Question Field</label>
-        <select name="field" id="field">
-          <option value="Not Relevant" selected>Not Relevant</option>
-          <option value="Architecture">Architecture</option>
-          <option value="Software ENG">Software Engineering</option>
-          <option value="Business Management">Business Management</option>
-          <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <select name="field" id="field" onchange="addOptions()">
+          {% for field in fields%}
+          <option value="{{field.question_field}}">
+            {{field.question_field}}
+          </option>
+          {% endfor %}
         </select>
+      </div>
+
+      <div class="q-entry" id="newField">
+        <label for="addField">Enter question field</label>
+        <input type="text" name="addField" id="addField" />
       </div>
 
       <div class="q-entry">
