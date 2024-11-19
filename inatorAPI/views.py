@@ -10,39 +10,39 @@ from sqlalchemy import exc
 views = Blueprint("views", __name__)
 
 
-@views.route('/upload_profile_image', methods=['POST'])
-@login_required
-def upload_profile_image():
-    if 'profile_image' not in request.files:
-        flash('No file part', 'error')
-        return redirect(url_for('views.settings'))
+# @views.route('/upload_profile_image', methods=['POST'])
+# @login_required
+# def upload_profile_image():
+#     if 'profile_image' not in request.files:
+#         flash('No file part', 'error')
+#         return redirect(url_for('views.settings'))
     
-    file = request.files['profile_image']
+#     file = request.files['profile_image']
     
-    if file.filename == '':
-        flash('No selected file', 'error')
-        return redirect(url_for('views.settings', id=current_user.id))
+#     if file.filename == '':
+#         flash('No selected file', 'error')
+#         return redirect(url_for('views.settings', id=current_user.id))
     
-    if file and allowed_file(file.filename):
-        name = f"user_{current_user.id}"
+#     if file and allowed_file(file.filename):
+#         name = f"user_{current_user.id}"
 
-        new_filename = f"{name}.png"
-        image = Image.open(file)
-        image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
+#         new_filename = f"{name}.png"
+#         image = Image.open(file)
+#         image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
         
-        current_user.profile_image = new_filename
-        db.session.commit()
+#         current_user.profile_image = new_filename
+#         db.session.commit()
         
-        flash('Profile image updated successfully', 'success')
-        return redirect(url_for('views.settings', id=current_user.id))
+#         flash('Profile image updated successfully', 'success')
+#         return redirect(url_for('views.settings', id=current_user.id))
     
-    flash('Invalid file type', 'error')
-    return redirect(url_for('views.settings', id=current_user.id))
+#     flash('Invalid file type', 'error')
+#     return redirect(url_for('views.settings', id=current_user.id))
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
+# def allowed_file(filename):
+#     return '.' in filename and \
+#            filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
 
 
 @views.route('/update_settings', methods=['POST'])
@@ -75,15 +75,7 @@ def delete_account():
     try:
         user_id = current_user.id
         
-        # Delete profile image if it exists
-        if current_user.profile_image and current_user.profile_image != 'default.jpg':
-            image_path = os.path.join(current_app.config["UPLOAD_FOLDER"], current_user.profile_image)
-            if os.path.exists(image_path):
-                try:
-                    os.remove(image_path)
-                except OSError as e:
-                    current_app.logger.error(f"Error deleting profile image: {e}")
-        
+                
         # Begin database transaction
         db.session.begin_nested()
         
@@ -186,7 +178,7 @@ def submit_question():
         field = request.form.get("field")
 
         if field == "Other":
-            new_field = request.form.get("addField")
+            new_field = request.form.get("addField").lower()
             field = QuestionFields(question_field= new_field)
             db.session.add(field)
             db.session.commit()

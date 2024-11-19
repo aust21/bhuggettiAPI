@@ -16,7 +16,6 @@ class User(db.Model, UserMixin):
     is_admin = db.Column(db.Boolean, default=False)
     culture_fit_questions = db.relationship('CultureFitQuestion', backref='user', passive_deletes=True)
     technical_questions = db.relationship('TechnicalQuestion', backref='user', passive_deletes=True)
-    profile_image = db.Column(db.String(100), default='default.png') 
     cormfirm_code = db.Column(db.String(7), default="0000000")
     account_confirmed = db.Column(db.Boolean, default=False)
 

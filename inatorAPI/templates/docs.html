@@ -56,6 +56,11 @@
           questions. Defaults to technical questions if not specified. Returns a
           response of invalid if the type is invalid.
         </li>
+
+        <li>
+          <strong>field</strong> (optional): Gets the field of the question.
+          Defaults to "not relevant" if not specified
+        </li>
       </ul>
 
       <h3>Response</h3>
@@ -64,11 +69,8 @@
         {
             "data": [
                 {
-                    "id": 1,
                     "question": "What is your greatest strength?",
-                    "user_id": 2,
                     "domain": "Software Engineering",
-                    "date_created": "2024-10-01 12:34:56"
                 }
             ]
         }
@@ -82,18 +84,12 @@
           {
             "data": [
                 {
-                    "id": 3,
                     "question": "Tell me about a time you demonstrated leadership.",
-                    "user_id": 2,
                     "domain": "Software Engineering",
-                    "date_created": "2024-10-01 12:45:30"
                 },
                 {
-                    "id": 5,
                     "question": "How do you prioritize your tasks?",
-                    "user_id": 1,
                     "domain": "Business Management",
-                    "date_created": "2024-10-01 13:15:22"
                 }
             ]
           }
@@ -108,9 +104,7 @@
           "data": [
               {
                   "domain": "Not Relevant",
-                  "id": 2,
                   "question": "What are your values?",
-                  "user_id": 1
               }
           ]
         }
@@ -125,15 +119,30 @@
           "data": [
               {
                   "domain": "Not Relevant",
-                  "id": 1,
-                  "question": "Tell me about a time you created something innovative",
-                  "user_id": 1
+                  "question": "What do you think about global warming?",
               },
               {
                   "domain": "Not Relevant",
-                  "id": 2,
-                  "question": "What are your values?",
-                  "user_id": 1
+                  "question": "What does global warming think about you?",
+              }
+          ]
+        }
+      </pre>
+
+      <h3>Example Request with count and type and field</h3>
+      <pre>GET /api/questions?count=2&type=culture&field=architecture</pre>
+
+      <h3>Example Response</h3>
+      <pre>
+        {
+          "data": [
+              {
+                  "domain": "architecture",
+                  "question": "What is a house?",
+              },
+              {
+                  "domain": "architecture",
+                  "question": "A house is what?",
               }
           ]
         }
@@ -142,6 +151,7 @@
 
     <footer>
       <p>API Documentation Version 1.0</p>
+      <p>Written by a conspiracy theorist</p>
     </footer>
   </body>
 </html>

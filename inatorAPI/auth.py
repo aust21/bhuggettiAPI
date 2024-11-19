@@ -288,7 +288,6 @@ def sign_up():
         else:
             new_user = User(email=email, name=name, speciality=speciality, 
             password=generate_password_hash(password, method="pbkdf2:sha256"), company=company,
-            profile_image="default.png",
             cormfirm_code="0000000",
             account_confirmed=False)
             db.session.add(new_user)

@@ -46,6 +46,12 @@
     </ul>
     <ul class="side-menu">
       <li>
+        <a href="{{ url_for('docs') }}">
+          <i class="bx bxs-file-doc"></i>
+          <span class="text">Docs</span>
+        </a>
+      </li>
+      <li>
         <a href="{{ url_for('views.settings', id=user.id) }}">
           <i class="bx bxs-cog" style="color: #afcce6"></i>
           <span class="text">Settings</span>
@@ -73,7 +79,7 @@
       <p>{{user.name}}</p>
       <a href="#" class="profile">
         <img
-          src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+          src="{{ url_for('static', filename='profile_pics/default.png') }}"
           alt="Profile Image"
         />
       </a>

@@ -82,22 +82,33 @@ def create_app():
         # in the future, select random id's first and return the questions from them
         count = request.args.get('count', default=1, type=int)
         q_type = request.args.get('type', default="technical", type=str)
+        q_field = request.args.get('field', default="not relevant", type=str).lower()
 
-        if q_type.lower() == "technical":
-            questions = TechnicalQuestion.query.order_by(func.random()).limit(count).all()
-        elif q_type.lower() == "culture":
-            questions = CultureFitQuestion.query.order_by(func.random()).limit(count).all()
-        else:
-            return jsonify({"data":"invalid question type. Please refer to the docs"})
+        print(q_field)
+        if q_field == "not relevant":
+            if q_type.lower() == "technical":
+                questions = TechnicalQuestion.query.order_by(func.random()).limit(count).all()
+            elif q_type.lower() == "culture":
+                questions = CultureFitQuestion.query.order_by(func.random()).limit(count).all()
+            else:
+                return jsonify({"data":"invalid question type. Please refer to the docs"})
+            
+        elif q_field != "not relevant":
+            if q_type.lower() == "technical":
+                questions = TechnicalQuestion.query.filter(TechnicalQuestion.domain == q_field).order_by(func.random()).limit(count).all()
+            elif q_type.lower() == "culture":
+                questions = CultureFitQuestion.query.filter(CultureFitQuestion.domain == q_field).order_by(func.random()).limit(count).all()
+                print(f"questions {questions}")
+            else:
+                return jsonify({"data":"invalid question type. Please refer to the docs"})
+        
         
         if len(questions) == 0:
             return jsonify({"data": "there are no questions yet for this field"})
 
         questions_data = [
             {
-                "id": question.id,
                 "question": question.question,
-                "user_id": question.user_id,
                 "domain": question.domain,
             }
             for question in questions
