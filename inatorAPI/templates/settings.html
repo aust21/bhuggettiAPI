@@ -40,7 +40,7 @@
             <button type="submit" class="e">Send verification email</button>
             {% endif %}
           </form>
-          <form action="{{ url_for('auth.update_account') }}" method="POST">
+          <form action="{{ url_for('auth.update_account') }}" method="POST" {% if user.account_confirmed==True %}style="display:none"{% endif %}>
             <div class="form-group flex">
               <input
                 type="text"
