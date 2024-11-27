@@ -70,7 +70,7 @@
         <label for="field">Question Field</label>
         <select name="field" id="field" onchange="addOptions()">
           {% for field in fields%}
-          <option value="{{field.question_field}}">
+          <option value="{{field.question_field}}" {% if field.question_field=="Other" %}selected{% endif %}>
             {{field.question_field}}
           </option>
           {% endfor %}
