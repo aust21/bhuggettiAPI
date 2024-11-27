@@ -86,7 +86,9 @@
         <label for="question">Question</label>
         <textarea name="question" id="question" required></textarea>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" {% if user.account_confirmed==False %}disabled class="disabled" {% endif %}>
+        {% if user.account_confirmed==False %}Please verify your account {% else %} Submit {% endif %}
+      </button>
     </form>
   </div>
 </div>

@@ -472,6 +472,10 @@ body {
 .question {
   font-size: small;
 }
+
+button[type='submit'].disabled {
+  cursor: progress;
+}
 /* MAIN */
 /* CONTENT */
 
