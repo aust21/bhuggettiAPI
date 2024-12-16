@@ -53,7 +53,7 @@ def create_app():
 
     @app.route("/")
     def index():
-        flash("We're excited to have you here! This site is currently in development and testing, but feel free to sign up and take a look around.", category="info")
+        # flash("We're excited to have you here! This site is currently in development and testing, but feel free to sign up and take a look around.", category="info")
         return render_template("index.html")
     
     @app.route("/login")
